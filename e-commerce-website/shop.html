@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - ShopEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Top Bar and Header (Same as index.html) -->
+    <!-- ... -->
+
+    <!-- Main Content -->
+    <main class="shop-page">
+        <div class="container">
+            <div class="page-header">
+                <h1>Shop</h1>
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a> / <span>Shop</span>
+                </div>
+            </div>
+            
+            <div class="shop-content">
+                <!-- Sidebar Filters -->
+                <aside class="shop-sidebar">
+                    <div class="sidebar-widget">
+                        <h3>Categories</h3>
+                        <ul class="category-list">
+                            <li><a href="shop.html">All Categories</a></li>
+                            <li><a href="shop.html?category=electronics">Electronics</a></li>
+                            <li><a href="shop.html?category=fashion">Fashion</a></li>
+                            <li><a href="shop.html?category=home">Home & Garden</a></li>
+                            <li><a href="shop.html?category=beauty">Beauty</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-widget">
+                        <h3>Price Range</h3>
+                        <div class="price-range">
+                            <input type="range" min="0" max="1000" value="500" class="slider" id="price-range">
+                            <div class="price-values">
+                                <span>$0</span>
+                                <span>$1000</span>
+                            </div>
+                            <button class="btn btn-small" id="apply-price">Apply</button>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-widget">
+                        <h3>Brands</h3>
+                        <ul class="brand-list">
+                            <li><input type="checkbox" id="brand1"> <label for="brand1">Apple</label></li>
+                            <li><input type="checkbox" id="brand2"> <label for="brand2">Samsung</label></li>
+                            <li><input type="checkbox" id="brand3"> <label for="brand3">Nike</label></li>
+                            <li><input type="checkbox" id="brand4"> <label for="brand4">Adidas</label></li>
+                            <li><input type="checkbox" id="brand5"> <label for="brand5">Sony</label></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="sidebar-widget">
+                        <h3>Ratings</h3>
+                        <ul class="rating-list">
+                            <li>
+                                <input type="checkbox" id="rating5">
+                                <label for="rating5">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="rating4">
+                                <label for="rating4">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i> & Up
+                                </label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="rating3">
+                                <label for="rating3">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i> & Up
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </aside>
+                
+                <!-- Product Listing -->
+                <div class="product-listing">
+                    <div class="listing-header">
+                        <div class="sort-options">
+                            <label for="sort-by">Sort by:</label>
+                            <select id="sort-by">
+                                <option value="popular">Popularity</option>
+                                <option value="newest">Newest</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Rating</option>
+                            </select>
+                        </div>
+                        <div class="view-options">
+                            <span>View:</span>
+                            <button class="view-btn active" data-view="grid"><i class="fas fa-th"></i></button>
+                            <button class="view-btn" data-view="list"><i class="fas fa-list"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="products-grid" id="all-products">
+                        <!-- Products will be loaded via JavaScript -->
+                    </div>
+                    
+                    <div class="pagination">
+                        <button class="page-btn disabled"><i class="fas fa-chevron-left"></i></button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (Same as index.html) -->
+    <!-- ... -->
+
+    <script src="js/products.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Filter and sort functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const products = getProducts();
+            const category = new URLSearchParams(window.location.search).get('category');
+            let filteredProducts = products;
+            
+            // Filter by category if specified
+            if (category) {
+                filteredProducts = products.filter(product => product.category === category);
+                document.querySelector('.page-header h1').textContent = category.charAt(0).toUpperCase() + category.slice(1);
+            }
+            
+            displayProducts(filteredProducts, 'all-products');
+            
+            // Sort functionality
+            document.getElementById('sort-by').addEventListener('change', function() {
+                const sortValue = this.value;
+                let sortedProducts = [...filteredProducts];
+                
+                switch(sortValue) {
+                    case 'price-low':
+                        sortedProducts.sort((a, b) => a.price - b.price);
+                        break;
+                    case 'price-high':
+                        sortedProducts.sort((a, b) => b.price - a.price);
+                        break;
+                    case 'rating':
+                        sortedProducts.sort((a, b) => b.rating - a.rating);
+                        break;
+                    case 'newest':
+                        sortedProducts.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
+                        break;
+                    default:
+                        // Popularity (default)
+                        break;
+                }
+                
+                displayProducts(sortedProducts, 'all-products');
+            });
+            
+            // View toggle
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const view = this.dataset.view;
+                    const productsGrid = document.getElementById('all-products');
+                    productsGrid.className = view === 'grid' ? 'products-grid' : 'products-list';
+                });
+            });
+            
+            // Price filter
+            document.getElementById('apply-price').addEventListener('click', function() {
+                const priceRange = document.getElementById('price-range').value;
+                const priceFiltered = filteredProducts.filter(product => product.price <= priceRange);
+                displayProducts(priceFiltered, 'all-products');
+            });
+        });
+    </script>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', async function() {
+    // Load products from API
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get('category');
+    
+    let queryParams = {};
+    if (category) queryParams.category = category;
+    
+    try {
+        const products = await getProducts(queryParams);
+        displayProducts(products, 'all-products');
+    } catch (error) {
+        console.error('Failed to load products:', error);
+        document.getElementById('all-products').innerHTML = '<p>Failed to load products. Please try again later.</p>';
+    }
+    
+    // Sort functionality
+    document.getElementById('sort-by').addEventListener('change', async function() {
+        const sortValue = this.value;
+        let sortParams = { ...queryParams };
+        
+        switch(sortValue) {
+            case 'price-low': sortParams.sort = 'price'; break;
+            case 'price-high': sortParams.sort = '-price'; break;
+            case 'rating': sortParams.sort = '-rating'; break;
+            case 'newest': sortParams.sort = '-createdAt'; break;
+        }
+        
+        try {
+            const sortedProducts = await getProducts(sortParams);
+            displayProducts(sortedProducts, 'all-products');
+        } catch (error) {
+            console.error('Failed to sort products:', error);
+        }
+    });
+    
+    // View toggle
+    document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const view = this.dataset.view;
+            const productsGrid = document.getElementById('all-products');
+            productsGrid.className = view === 'grid' ? 'products-grid' : 'products-list';
+        });
+    });
+    
+    // Price filter
+    document.getElementById('apply-price').addEventListener('click', function() {
+        const priceRange = document.getElementById('price-range').value;
+        const priceParams = { ...queryParams, price: `lte:${priceRange}` };
+        
+        getProducts(priceParams)
+            .then(filteredProducts => displayProducts(filteredProducts, 'all-products'))
+            .catch(error => console.error('Failed to filter products:', error));
+    });
+});
+</script>
+
+
+
+
+</body>
+</html>

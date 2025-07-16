@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - ShopEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Top Bar and Header (Same as index.html) -->
+    <!-- ... -->
+
+    <!-- Main Content -->
+    <main class="auth-page">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <div class="tab active" data-tab="login">Login</div>
+                    <div class="tab" data-tab="register">Register</div>
+                </div>
+                
+                <!-- Login Form -->
+                <div class="auth-form active" id="login-form">
+                    <h2>Welcome Back</h2>
+                    <p>Login to your account to continue shopping</p>
+                    
+                    <form id="login">
+                        <div class="form-group">
+                            <label for="login-email">Email Address</label>
+                            <input type="email" id="login-email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        
+                        <div class="form-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="remember-me"> Remember me
+                            </label>
+                            <a href="#" id="forgot-password">Forgot password?</a>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        
+                        <div class="social-login">
+                            <p>Or login with</p>
+                            <div class="social-buttons">
+                                <button type="button" class="btn btn-social facebook">
+                                    <i class="fab fa-facebook-f"></i> Facebook
+                                </button>
+                                <button type="button" class="btn btn-social google">
+                                    <i class="fab fa-google"></i> Google
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Register Form -->
+                <div class="auth-form" id="register-form">
+                    <h2>Create Account</h2>
+                    <p>Register to start shopping with us</p>
+                    
+                    <form id="register">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="register-firstname">First Name</label>
+                                <input type="text" id="register-firstname" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="register-lastname">Last Name</label>
+                                <input type="text" id="register-lastname" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-email">Email Address</label>
+                            <input type="email" id="register-email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" id="register-password" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="register-confirm">Confirm Password</label>
+                            <input type="password" id="register-confirm" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="agree-terms" required> I agree to the <a href="#">Terms and Conditions</a> and <a href="#">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                    </form>
+                </div>
+                
+                <!-- Forgot Password Form -->
+                <div class="auth-form" id="forgot-form">
+                    <h2>Reset Password</h2>
+                    <p>Enter your email to receive a password reset link</p>
+                    
+                    <form id="forgot">
+                        <div class="form-group">
+                            <label for="forgot-email">Email Address</label>
+                            <input type="email" id="forgot-email" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">Send Reset Link</button>
+                        <button type="button" class="btn btn-text btn-block" id="back-to-login">Back to Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (Same as index.html) -->
+    <!-- ... -->
+
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching
+            document.querySelectorAll('.auth-tabs .tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.dataset.tab;
+                    
+                    document.querySelectorAll('.auth-tabs .tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+                    document.getElementById(`${tabId}-form`).classList.add('active');
+                });
+            });
+            
+            // Forgot password
+            document.getElementById('forgot-password').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+                document.getElementById('forgot-form').classList.add('active');
+            });
+            
+            // Back to login from forgot password
+            document.getElementById('back-to-login').addEventListener('click', function() {
+                document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+                document.getElementById('login-form').classList.add('active');
+                document.querySelector('.auth-tabs .tab[data-tab="login"]').classList.add('active');
+                document.querySelector('.auth-tabs .tab[data-tab="register"]').classList.remove('active');
+            });
+            
+            // Form submissions
+            document.getElementById('login').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                // In a real app, you would validate and send to your backend
+                console.log('Login attempt:', email, password);
+                
+                // For demo, just redirect to dashboard
+                window.location.href = 'dashboard.html';
+            });
+            
+            document.getElementById('register').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const firstName = document.getElementById('register-firstname').value;
+                const lastName = document.getElementById('register-lastname').value;
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
+                const confirm = document.getElementById('register-confirm').value;
+                
+                if (password !== confirm) {
+                    alert('Passwords do not match!');
+                    return;
+                }
+                
+                // In a real app, you would validate and send to your backend
+                console.log('Registration:', firstName, lastName, email, password);
+                
+                // For demo, just redirect to dashboard
+                window.location.href = 'dashboard.html';
+            });
+            
+            document.getElementById('forgot').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('forgot-email').value;
+                
+                // In a real app, you would send a reset link to this email
+                console.log('Password reset requested for:', email);
+                alert('Password reset link has been sent to your email (demo only)');
+                
+                // Go back to login
+                document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+                document.getElementById('login-form').classList.add('active');
+                document.querySelector('.auth-tabs .tab[data-tab="login"]').classList.add('active');
+                document.querySelector('.auth-tabs .tab[data-tab="register"]').classList.remove('active');
+            });
+        });
+    </script>
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', async function() {
+    // Load products from API
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get('category');
+    
+    let queryParams = {};
+    if (category) queryParams.category = category;
+    
+    try {
+        const products = await getProducts(queryParams);
+        displayProducts(products, 'all-products');
+    } catch (error) {
+        console.error('Failed to load products:', error);
+        document.getElementById('all-products').innerHTML = '<p>Failed to load products. Please try again later.</p>';
+    }
+    
+    // Sort functionality
+    document.getElementById('sort-by').addEventListener('change', async function() {
+        const sortValue = this.value;
+        let sortParams = { ...queryParams };
+        
+        switch(sortValue) {
+            case 'price-low': sortParams.sort = 'price'; break;
+            case 'price-high': sortParams.sort = '-price'; break;
+            case 'rating': sortParams.sort = '-rating'; break;
+            case 'newest': sortParams.sort = '-createdAt'; break;
+        }
+        
+        try {
+            const sortedProducts = await getProducts(sortParams);
+            displayProducts(sortedProducts, 'all-products');
+        } catch (error) {
+            console.error('Failed to sort products:', error);
+        }
+    });
+    
+    // View toggle
+    document.querySelectorAll('.view-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const view = this.dataset.view;
+            const productsGrid = document.getElementById('all-products');
+            productsGrid.className = view === 'grid' ? 'products-grid' : 'products-list';
+        });
+    });
+    
+    // Price filter
+    document.getElementById('apply-price').addEventListener('click', function() {
+        const priceRange = document.getElementById('price-range').value;
+        const priceParams = { ...queryParams, price: `lte:${priceRange}` };
+        
+        getProducts(priceParams)
+            .then(filteredProducts => displayProducts(filteredProducts, 'all-products'))
+            .catch(error => console.error('Failed to filter products:', error));
+    });
+});
+</script>
+</body>
+</html>

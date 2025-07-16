@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - ShopEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="admin-dashboard">
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+        <div class="admin-logo">
+            <a href="#">ShopEase Admin</a>
+        </div>
+        
+        <nav class="admin-menu">
+            <ul>
+                <li class="active"><a href="#dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#products"><i class="fas fa-box"></i> Products</a></li>
+                <li><a href="#orders"><i class="fas fa-shopping-bag"></i> Orders</a></li>
+                <li><a href="#categories"><i class="fas fa-tags"></i> Categories</a></li>
+                <li><a href="#customers"><i class="fas fa-users"></i> Customers</a></li>
+                <li><a href="#reviews"><i class="fas fa-star"></i> Reviews</a></li>
+                <li><a href="#reports"><i class="fas fa-chart-bar"></i> Reports</a></li>
+                <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </nav>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="admin-main">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <div class="header-left">
+                <button class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+                <h1>Dashboard</h1>
+            </div>
+            
+            <div class="header-right">
+                <div class="search-box">
+                    <input type="text" placeholder="Search...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="admin-notifications">
+                    <button class="notification-btn">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                </div>
+                
+                <div class="admin-profile">
+                    <img src="images/admin-avatar.jpg" alt="Admin">
+                    <span>Admin User</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Dashboard Content -->
+        <div class="admin-content">
+            <div class="admin-tab active" id="dashboard-tab">
+                <!-- Stats Cards -->
+                <div class="stats-cards">
+                    <div class="stats-card">
+                        <div class="card-icon blue">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Total Sales</h3>
+                            <p>$12,345.67</p>
+                            <span class="change positive"><i class="fas fa-arrow-up"></i> 12% from last month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card">
+                        <div class="card-icon green">
+                            <i class="fas fa-box"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Total Products</h3>
+                            <p>245</p>
+                            <span class="change positive"><i class="fas fa-arrow-up"></i> 5 new this week</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card">
+                        <div class="card-icon orange">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Total Customers</h3>
+                            <p>1,234</p>
+                            <span class="change positive"><i class="fas fa-arrow-up"></i> 8% from last month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-card">
+                        <div class="card-icon red">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Pending Orders</h3>
+                            <p>24</p>
+                            <span class="change negative"><i class="fas fa-arrow-down"></i> 3% from last week</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Orders -->
+                <div class="admin-section">
+                    <div class="section-header">
+                        <h2>Recent Orders</h2>
+                        <a href="#orders" class="btn-text">View All</a>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#1005</td>
+                                    <td>John Smith</td>
+                                    <td>Today, 10:30 AM</td>
+                                    <td>$125.99</td>
+                                    <td><span class="status processing">Processing</span></td>
+                                    <td><a href="#" class="btn-text">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#1004</td>
+                                    <td>Sarah Johnson</td>
+                                    <td>Yesterday, 2:15 PM</td>
+                                    <td>$89.50</td>
+                                    <td><span class="status shipped">Shipped</span></td>
+                                    <td><a href="#" class="btn-text">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#1003</td>
+                                    <td>Michael Brown</td>
+                                    <td>March 18, 2023</td>
+                                    <td>$234.00</td>
+                                    <td><span class="status delivered">Delivered</span></td>
+                                    <td><a href="#" class="btn-text">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#1002</td>
+                                    <td>Emma Davis</td>
+                                    <td>March 17, 2023</td>
+                                    <td>$56.75</td>
+                                    <td><span class="status cancelled">Cancelled</span></td>
+                                    <td><a href="#" class="btn-text">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#1001</td>
+                                    <td>Robert Wilson</td>
+                                    <td>March 16, 2023</td>
+                                    <td>$199.99</td>
+                                    <td><span class="status delivered">Delivered</span></td>
+                                    <td><a href="#" class="btn-text">View</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Sales Chart -->
+                <div class="admin-section">
+                    <div class="section-header">
+                        <h2>Sales Overview</h2>
+                        <div class="time-filter">
+                            <button class="active">Week</button>
+                            <button>Month</button>
+                            <button>Year</button>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Products Tab -->
+            <div class="admin-tab" id="products-tab">
+                <div class="admin-section">
+                    <div class="section-header">
+                        <h2>Products</h2>
+                        <button class="btn btn-primary" id="add-product"><i class="fas fa-plus"></i> Add Product</button>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Stock</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><img src="images/product1.jpg" alt="Product" class="product-thumb"></td>
+                                    <td>Wireless Headphones</td>
+                                    <td>Electronics</td>
+                                    <td>$99.99</td>
+                                    <td>45</td>
+                                    <td><span class="status active">Active</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><img src="images/product2.jpg" alt="Product" class="product-thumb"></td>
+                                    <td>Smart Watch</td>
+                                    <td>Electronics</td>
+                                    <td>$199.99</td>
+                                    <td>32</td>
+                                    <td><span class="status active">Active</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><img src="images/product3.jpg" alt="Product" class="product-thumb"></td>
+                                    <td>Running Shoes</td>
+                                    <td>Fashion</td>
+                                    <td>$79.99</td>
+                                    <td>0</td>
+                                    <td><span class="status inactive">Out of Stock</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><img src="images/product4.jpg" alt="Product" class="product-thumb"></td>
+                                    <td>Bluetooth Speaker</td>
+                                    <td>Electronics</td>
+                                    <td>$59.99</td>
+                                    <td>18</td>
+                                    <td><span class="status active">Active</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><img src="images/product5.jpg" alt="Product" class="product-thumb"></td>
+                                    <td>Backpack</td>
+                                    <td>Fashion</td>
+                                    <td>$49.99</td>
+                                    <td>27</td>
+                                    <td><span class="status active">Active</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="pagination">
+                        <button class="page-btn disabled"><i class="fas fa-chevron-left"></i></button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Orders Tab -->
+            <div class="admin-tab" id="orders-tab">
+                <div class="admin-section">
+                    <div class="section-header">
+                        <h2>Orders</h2>
+                        <div class="order-filter">
+                            <select>
+                                <option>All Status</option>
+                                <option>Pending</option>
+                                <option>Processing</option>
+                                <option>Shipped</option>
+                                <option>Delivered</option>
+                                <option>Cancelled</option>
+                            </select>
+                            <input type="date" id="order-date-from">
+                            <input type="date" id="order-date-to">
+                            <button class="btn btn-primary">Filter</button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Items</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#1005</td>
+                                    <td>John Smith</td>
+                                    <td>Today, 10:30 AM</td>
+                                    <td>3</td>
+                                    <td>$125.99</td>
+                                    <td><span class="status processing">Processing</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#1004</td>
+                                    <td>Sarah Johnson</td>
+                                    <td>Yesterday, 2:15 PM</td>
+                                    <td>2</td>
+                                    <td>$89.50</td>
+                                    <td><span class="status shipped">Shipped</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#1003</td>
+                                    <td>Michael Brown</td>
+                                    <td>March 18, 2023</td>
+                                    <td>5</td>
+                                    <td>$234.00</td>
+                                    <td><span class="status delivered">Delivered</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#1002</td>
+                                    <td>Emma Davis</td>
+                                    <td>March 17, 2023</td>
+                                    <td>1</td>
+                                    <td>$56.75</td>
+                                    <td><span class="status cancelled">Cancelled</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#1001</td>
+                                    <td>Robert Wilson</td>
+                                    <td>March 16, 2023</td>
+                                    <td>2</td>
+                                    <td>$199.99</td>
+                                    <td><span class="status delivered">Delivered</span></td>
+                                    <td>
+                                        <button class="btn-icon"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="pagination">
+                        <button class="page-btn disabled"><i class="fas fa-chevron-left"></i></button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add Product Modal -->
+    <div class="modal" id="add-product-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Product</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="product-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-name">Product Name</label>
+                            <input type="text" id="product-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-sku">SKU</label>
+                            <input type="text" id="product-sku" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-category">Category</label>
+                            <select id="product-category" required>
+                                <option value="">Select Category</option>
+                                <option value="electronics">Electronics</option>
+                                <option value="fashion">Fashion</option>
+                                <option value="home">Home & Garden</option>
+                                <option value="beauty">Beauty</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-brand">Brand</label>
+                            <input type="text" id="product-brand">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="product-price">Price</label>
+                            <input type="number" id="product-price" step="0.01" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="product-sale-price">Sale Price</label>
+                            <input type="number" id="product-sale-price" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="product-stock">Stock Quantity</label>
+                            <input type="number" id="product-stock" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-short-desc">Short Description</label>
+                        <textarea id="product-short-desc" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="product-desc">Description</label>
+                        <textarea id="product-desc" rows="5" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Product Images</label>
+                        <div class="image-upload">
+                            <div class="upload-area">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Drag & drop images here or click to browse</p>
+                                <input type="file" id="product-images" multiple accept="image/*">
+                            </div>
+                            <div class="upload-preview" id="image-preview"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="product-status" checked> Product is active
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline modal-close">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Product</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sidebar toggle
+            document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+                document.querySelector('.admin-sidebar').classList.toggle('collapsed');
+            });
+            
+            // Tab switching
+            document.querySelectorAll('.admin-menu a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tabId = this.getAttribute('href').substring(1);
+                    
+                    document.querySelectorAll('.admin-menu li').forEach(item => item.classList.remove('active'));
+                    this.parentElement.classList.add('active');
+                    
+                    document.querySelectorAll('.admin-tab').forEach(tab => tab.classList.remove('active'));
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                    
+                    // Update header title
+                    document.querySelector('.admin-header h1').textContent = this.textContent.trim();
+                });
+            });
+            
+            // Add product modal
+            document.getElementById('add-product').addEventListener('click', function() {
+                document.getElementById('add-product-modal').classList.add('show');
+            });
+            
+            document.querySelectorAll('.modal-close').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.getElementById('add-product-modal').classList.remove('show');
+                });
+            });
+            
+            // Image upload preview
+            document.getElementById('product-images').addEventListener('change', function(e) {
+                const preview = document.getElementById('image-preview');
+                preview.innerHTML = '';
+                
+                if (this.files) {
+                    Array.from(this.files).forEach(file => {
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(event) {
+                            const img = document.createElement('img');
+                            img.src = event.target.result;
+                            preview.appendChild(img);
+                        }
+                        
+                        reader.readAsDataURL(file);
+                    });
+                }
+            });
+            
+            // Product form submission
+            document.getElementById('product-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // In a real app, you would send this to your backend
+                console.log('Product added');
+                alert('Product added successfully!');
+                document.getElementById('add-product-modal').classList.remove('show');
+                this.reset();
+                document.getElementById('image-preview').innerHTML = '';
+            });
+            
+            // Sales chart
+            const ctx = document.getElementById('salesChart').getContext('2d');
+            const salesChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                    datasets: [{
+                        label: 'Sales',
+                        data: [1200, 1900, 1500, 2000, 1800, 2200, 2400],
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

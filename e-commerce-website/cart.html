@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - ShopEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Top Bar and Header (Same as index.html) -->
+    <!-- ... -->
+
+    <!-- Main Content -->
+    <main class="cart-page">
+        <div class="container">
+            <div class="page-header">
+                <h1>Shopping Cart</h1>
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a> / <span>Shopping Cart</span>
+                </div>
+            </div>
+            
+            <div class="cart-content">
+                <div class="cart-items">
+                    <div class="cart-table-header">
+                        <div class="header-item product">Product</div>
+                        <div class="header-item price">Price</div>
+                        <div class="header-item quantity">Quantity</div>
+                        <div class="header-item total">Total</div>
+                        <div class="header-item action">Action</div>
+                    </div>
+                    
+                    <div class="cart-items-list" id="cart-items">
+                        <!-- Cart items will be loaded via JavaScript -->
+                    </div>
+                    
+                    <div class="cart-actions">
+                        <a href="shop.html" class="btn btn-outline"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+                        <button class="btn btn-outline" id="update-cart">Update Cart</button>
+                    </div>
+                </div>
+                
+                <div class="cart-summary">
+                    <h3>Cart Summary</h3>
+                    <div class="summary-details">
+                        <div class="summary-row">
+                            <span>Subtotal</span>
+                            <span id="cart-subtotal">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Shipping</span>
+                            <span id="cart-shipping">$5.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax</span>
+                            <span id="cart-tax">$0.00</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span id="cart-total">$0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="coupon-form">
+                        <input type="text" placeholder="Enter coupon code" id="coupon-code">
+                        <button class="btn btn-small" id="apply-coupon">Apply</button>
+                    </div>
+                    
+                    <a href="checkout.html" class="btn btn-primary btn-block">Proceed to Checkout</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (Same as index.html) -->
+    <!-- ... -->
+
+    <script src="js/cart.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load cart items
+            displayCartItems();
+            
+            // Update cart totals
+            updateCartTotals();
+            
+            // Update cart button
+            document.getElementById('update-cart').addEventListener('click', function() {
+                const cartItems = document.querySelectorAll('.cart-item');
+                const updatedCart = [];
+                
+                cartItems.forEach(item => {
+                    const id = item.dataset.id;
+                    const qty = parseInt(item.querySelector('.qty-input').value);
+                    const size = item.querySelector('.item-size').textContent;
+                    const color = item.querySelector('.item-color').textContent;
+                    
+                    updatedCart.push({
+                        id: id,
+                        quantity: qty,
+                        size: size,
+                        color: color
+                    });
+                });
+                
+                updateCart(updatedCart);
+                displayCartItems();
+                updateCartTotals();
+                alert('Cart updated successfully!');
+            });
+            
+            // Apply coupon
+            document.getElementById('apply-coupon').addEventListener('click', function() {
+                const couponCode = document.getElementById('coupon-code').value;
+                if (couponCode === 'DISCOUNT10') {
+                    applyDiscount(10);
+                    alert('Coupon applied! 10% discount added.');
+                } else if (couponCode === 'FREESHIP') {
+                    setFreeShipping();
+                    alert('Free shipping applied!');
+                } else {
+                    alert('Invalid coupon code');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

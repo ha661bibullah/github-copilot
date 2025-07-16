@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - ShopEase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!-- Top Bar and Header (Same as index.html) -->
+    <!-- ... -->
+
+    <!-- Main Content -->
+    <main class="product-page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> / 
+                <a href="shop.html">Shop</a> / 
+                <span id="product-category">Category</span> / 
+                <span id="product-name">Product Name</span>
+            </div>
+            
+            <div class="product-details">
+                <!-- Product Images -->
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img src="" alt="" id="main-product-image">
+                    </div>
+                    <div class="thumbnail-images">
+                        <div class="thumbnail active"><img src="images/product1-4.jpg" alt=""></div>
+                        <div class="thumbnail"><img src="" alt=""></div>
+                        <div class="thumbnail"><img src="" alt=""></div>
+                        <div class="thumbnail"><img src="" alt=""></div>
+                    </div>
+                </div>
+                
+                <!-- Product Info -->
+                <div class="product-info">
+                    <h1 id="product-title">Product Name</h1>
+                    <div class="product-meta">
+                        <div class="rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="review-count">(24 reviews)</span>
+                        </div>
+                        <div class="availability" id="product-stock">In Stock</div>
+                    </div>
+                    
+                    <div class="price" id="product-price">$99.99</div>
+                    
+                    <div class="product-description">
+                        <p id="product-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                    
+                    <div class="product-options">
+                        <div class="option">
+                            <label>Color:</label>
+                            <div class="color-options">
+                                <button class="color-option active" style="background-color: #000;" data-color="Black"></button>
+                                <button class="color-option" style="background-color: #fff; border: 1px solid #ddd;" data-color="White"></button>
+                                <button class="color-option" style="background-color: #ff0000;" data-color="Red"></button>
+                            </div>
+                        </div>
+                        
+                        <div class="option">
+                            <label>Size:</label>
+                            <select id="size-select">
+                                <option value="S">Small (S)</option>
+                                <option value="M" selected>Medium (M)</option>
+                                <option value="L">Large (L)</option>
+                                <option value="XL">Extra Large (XL)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="option">
+                            <label>Quantity:</label>
+                            <div class="quantity-selector">
+                                <button class="qty-btn minus"><i class="fas fa-minus"></i></button>
+                                <input type="number" value="1" min="1" id="product-qty">
+                                <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-actions">
+                        <button class="btn btn-primary" id="add-to-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                        <button class="btn btn-secondary" id="buy-now">Buy Now</button>
+                        <button class="wishlist-btn" id="add-to-wishlist"><i class="far fa-heart"></i></button>
+                    </div>
+                    
+                    <div class="product-meta-footer">
+                        <div class="meta-item">
+                            <i class="fas fa-truck"></i>
+                            <span>Free shipping on orders over $50</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-undo"></i>
+                            <span>30-day return policy</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Secure payment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product Tabs -->
+            <div class="product-tabs">
+                <ul class="tabs-nav">
+                    <li class="active" data-tab="description">Description</li>
+                    <li data-tab="specifications">Specifications</li>
+                    <li data-tab="reviews">Reviews</li>
+                </ul>
+                
+                <div class="tabs-content">
+                    <div class="tab-pane active" id="description">
+                        <h3>Product Description</h3>
+                        <p id="full-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                    
+                    <div class="tab-pane" id="specifications">
+                        <h3>Technical Specifications</h3>
+                        <table class="specs-table">
+                            <tr>
+                                <th>Brand</th>
+                                <td id="spec-brand">Brand Name</td>
+                            </tr>
+                            <tr>
+                                <th>Model</th>
+                                <td id="spec-model">XYZ-123</td>
+                            </tr>
+                            <tr>
+                                <th>Dimensions</th>
+                                <td id="spec-dimensions">10 x 5 x 2 inches</td>
+                            </tr>
+                            <tr>
+                                <th>Weight</th>
+                                <td id="spec-weight">1.5 lbs</td>
+                            </tr>
+                            <tr>
+                                <th>Material</th>
+                                <td id="spec-material">Plastic/Metal</td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="tab-pane" id="reviews">
+                        <h3>Customer Reviews</h3>
+                        <div class="review-summary">
+                            <div class="average-rating">
+                                <div class="avg-rating-value">4.5</div>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <div class="total-reviews">Based on 24 reviews</div>
+                            </div>
+                            <div class="rating-distribution">
+                                <div class="rating-bar">
+                                    <span>5 stars</span>
+                                    <div class="bar-container">
+                                        <div class="bar" style="width: 70%;"></div>
+                                    </div>
+                                    <span>70%</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span>4 stars</span>
+                                    <div class="bar-container">
+                                        <div class="bar" style="width: 20%;"></div>
+                                    </div>
+                                    <span>20%</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span>3 stars</span>
+                                    <div class="bar-container">
+                                        <div class="bar" style="width: 5%;"></div>
+                                    </div>
+                                    <span>5%</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span>2 stars</span>
+                                    <div class="bar-container">
+                                        <div class="bar" style="width: 3%;"></div>
+                                    </div>
+                                    <span>3%</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span>1 star</span>
+                                    <div class="bar-container">
+                                        <div class="bar" style="width: 2%;"></div>
+                                    </div>
+                                    <span>2%</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="review-form">
+                            <h4>Write a Review</h4>
+                            <form id="review-form">
+                                <div class="form-group">
+                                    <label>Rating</label>
+                                    <div class="rating-input">
+                                        <i class="far fa-star" data-rating="1"></i>
+                                        <i class="far fa-star" data-rating="2"></i>
+                                        <i class="far fa-star" data-rating="3"></i>
+                                        <i class="far fa-star" data-rating="4"></i>
+                                        <i class="far fa-star" data-rating="5"></i>
+                                        <input type="hidden" id="review-rating" value="0">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="review-name">Name</label>
+                                    <input type="text" id="review-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="review-title">Review Title</label>
+                                    <input type="text" id="review-title" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="review-text">Your Review</label>
+                                    <textarea id="review-text" rows="5" required></textarea>
+                                </div>
+                                <button type="submit" class="btn">Submit Review</button>
+                            </form>
+                        </div>
+                        
+                        <div class="reviews-list">
+                            <div class="review">
+                                <div class="review-header">
+                                    <div class="review-author">John D.</div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="review-date">March 15, 2023</div>
+                                </div>
+                                <h5 class="review-title">Excellent product!</h5>
+                                <p class="review-text">This product exceeded my expectations. The quality is outstanding and it arrived quickly. Highly recommend!</p>
+                            </div>
+                            
+                            <div class="review">
+                                <div class="review-header">
+                                    <div class="review-author">Sarah M.</div>
+                                    <div class="review-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                    </div>
+                                    <div class="review-date">February 28, 2023</div>
+                                </div>
+                                <h5 class="review-title">Very good, but...</h5>
+                                <p class="review-text">Overall a great product, but the color was slightly different than shown in the pictures. Still happy with my purchase though.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Related Products -->
+            <section class="related-products">
+                <h2 class="section-title">You May Also Like</h2>
+                <div class="products-grid" id="related-products">
+                    <!-- Related products will be loaded via JavaScript -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer (Same as index.html) -->
+    <!-- ... -->
+
+    <script src="js/products.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get product ID from URL
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get('id');
+            
+            if (productId) {
+                const product = getProductById(productId);
+                if (product) {
+                    // Populate product details
+                    document.getElementById('product-title').textContent = product.name;
+                    document.getElementById('product-price').textContent = `$${product.price.toFixed(2)}`;
+                    document.getElementById('product-description').textContent = product.shortDescription;
+                    document.getElementById('full-description').textContent = product.description;
+                    document.getElementById('product-category').textContent = product.category;
+                    document.getElementById('product-name').textContent = product.name;
+                    document.getElementById('product-stock').textContent = product.stock > 0 ? 'In Stock' : 'Out of Stock';
+                    
+                    // Set main image
+                    const mainImage = document.getElementById('main-product-image');
+                    mainImage.src = product.images[0];
+                    mainImage.alt = product.name;
+                    
+                    // Set thumbnails
+                    const thumbnails = document.querySelectorAll('.thumbnail img');
+                    product.images.forEach((img, index) => {
+                        if (thumbnails[index]) {
+                            thumbnails[index].src = img;
+                            thumbnails[index].alt = product.name;
+                        }
+                    });
+                    
+                    // Thumbnail click event
+                    document.querySelectorAll('.thumbnail').forEach((thumb, index) => {
+                        thumb.addEventListener('click', function() {
+                            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                            this.classList.add('active');
+                            mainImage.src = product.images[index];
+                        });
+                    });
+                    
+                    // Tab functionality
+                    document.querySelectorAll('.tabs-nav li').forEach(tab => {
+                        tab.addEventListener('click', function() {
+                            const tabId = this.dataset.tab;
+                            
+                            document.querySelectorAll('.tabs-nav li').forEach(t => t.classList.remove('active'));
+                            this.classList.add('active');
+                            
+                            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+                            document.getElementById(tabId).classList.add('active');
+                        });
+                    });
+                    
+                    // Quantity selector
+                    document.querySelector('.qty-btn.minus').addEventListener('click', function() {
+                        const qtyInput = document.getElementById('product-qty');
+                        if (qtyInput.value > 1) {
+                            qtyInput.value--;
+                        }
+                    });
+                    
+                    document.querySelector('.qty-btn.plus').addEventListener('click', function() {
+                        const qtyInput = document.getElementById('product-qty');
+                        qtyInput.value++;
+                    });
+                    
+                    // Add to cart
+                    document.getElementById('add-to-cart').addEventListener('click', function() {
+                        const qty = parseInt(document.getElementById('product-qty').value);
+                        const color = document.querySelector('.color-option.active').dataset.color;
+                        const size = document.getElementById('size-select').value;
+                        
+                        addToCart({
+                            id: product.id,
+                            name: product.name,
+                            price: product.price,
+                            image: product.images[0],
+                            quantity: qty,
+                            color: color,
+                            size: size
+                        });
+                        
+                        alert('Product added to cart!');
+                    });
+                    
+                    // Buy now
+                    document.getElementById('buy-now').addEventListener('click', function() {
+                        const qty = parseInt(document.getElementById('product-qty').value);
+                        const color = document.querySelector('.color-option.active').dataset.color;
+                        const size = document.getElementById('size-select').value;
+                        
+                        addToCart({
+                            id: product.id,
+                            name: product.name,
+                            price: product.price,
+                            image: product.images[0],
+                            quantity: qty,
+                            color: color,
+                            size: size
+                        });
+                        
+                        window.location.href = 'checkout.html';
+                    });
+                    
+                    // Rating stars
+                    document.querySelectorAll('.rating-input i').forEach(star => {
+                        star.addEventListener('click', function() {
+                            const rating = parseInt(this.dataset.rating);
+                            document.getElementById('review-rating').value = rating;
+                            
+                            // Update star display
+                            document.querySelectorAll('.rating-input i').forEach((s, index) => {
+                                if (index < rating) {
+                                    s.classList.remove('far');
+                                    s.classList.add('fas');
+                                } else {
+                                    s.classList.remove('fas');
+                                    s.classList.add('far');
+                                }
+                            });
+                        });
+                    });
+                    
+                    // Load related products
+                    const relatedProducts = getRelatedProducts(product.id, product.category);
+                    displayProducts(relatedProducts, 'related-products');
+                } else {
+                    // Product not found
+                    window.location.href = 'shop.html';
+                }
+            } else {
+                // No product ID in URL
+                window.location.href = 'shop.html';
+            }
+        });
+    </script>
+</body>
+</html>

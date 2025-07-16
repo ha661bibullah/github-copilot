@@ -1,0 +1,2186 @@
+
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #4CAF50;
+            --primary-dark: #388E3C;
+            --secondary: #FF5722;
+            --dark: #212121;
+            --light: #f5f5f5;
+            --gray: #757575;
+            --white: #ffffff;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--dark);
+            direction: ltr; /* Left to right for proper layout */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .top-bar {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .top-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-links a {
+            color: var(--white);
+            text-decoration: none;
+            margin-left: 15px;
+        }
+
+        .main-header {
+            padding: 15px 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 600px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-bar button {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            cursor: pointer;
+        }
+
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            border-radius: 0 0 8px 8px;
+            box-shadow: var(--shadow);
+            display: none;
+            z-index: 10;
+        }
+
+        .suggestion-item {
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .suggestion-item i {
+            margin-right: 10px;
+            color: var(--gray);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-action {
+            margin-left: 20px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .header-action i {
+            font-size: 22px;
+            color: var(--dark);
+        }
+
+        .header-action .badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .auth-buttons {
+            display: flex;
+        }
+
+        .auth-btn {
+            margin-left: 10px;
+            padding: 8px 15px;
+            font-size: 14px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .user-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            padding: 10px 0;
+            width: 200px;
+            display: none;
+            z-index: 10;
+        }
+
+        .user-menu.active {
+            display: block;
+        }
+
+        .user-menu a {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: var(--dark);
+        }
+
+        .user-menu a:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            display: block;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background-color: var(--primary-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: #f0f0f0;
+            padding: 60px 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://via.placeholder.com/1200x400?text=SmartMart+Banner');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Categories */
+        .categories {
+            padding: 40px 0;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-img {
+            height: 120px;
+            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-img i {
+            font-size: 50px;
+            color: var(--primary);
+        }
+
+        .category-info {
+            padding: 15px;
+        }
+
+        .category-info h3 {
+            margin-bottom: 5px;
+        }
+
+        .category-info p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* Featured Products */
+        .featured-products, .products-section {
+            padding: 40px 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .view-toggle button {
+            background: none;
+            border: none;
+            font-size: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .view-toggle button.active {
+            color: var(--primary);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .products-list {
+            display: block;
+        }
+
+        .products-list .product-card {
+            display: flex;
+            max-width: 100%;
+        }
+
+        .products-list .product-image {
+            width: 200px;
+            height: 200px;
+            flex-shrink: 0;
+        }
+
+        .products-list .product-info {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .products-grid .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .product-card:hover .product-overlay {
+            opacity: 1;
+        }
+
+        .overlay-btn {
+            background-color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 0 5px;
+            cursor: pointer;
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+
+        .overlay-btn:hover, .overlay-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            margin-bottom: 10px;
+            height: 40px;
+            overflow: hidden;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .stars {
+            color: #FFC107;
+            margin-right: 5px;
+        }
+
+        .rating-count {
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .product-price {
+            margin-bottom: 15px;
+        }
+
+        .current-price {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .original-price {
+            font-size: 14px;
+            color: var(--gray);
+            text-decoration: line-through;
+            margin-left: 5px;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .add-to-cart-btn i {
+            margin-right: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bdbdbd;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: #424242;
+            color: white;
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .newsletter input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 4px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #424242;
+            font-size: 14px;
+            color: #bdbdbd;
+        }
+
+        /* Sidebar Cart */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h3 {
+            font-size: 18px;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .cart-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 50px 0;
+            color: var(--gray);
+        }
+
+        .cart-item {
+            display: flex;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-details h4 {
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .item-variants {
+            font-size: 12px;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .quantity-controls button {
+            width: 25px;
+            height: 25px;
+            background-color: #f0f0f0;
+            border: none;
+            cursor: pointer;
+        }
+
+        .quantity-controls span {
+            margin: 0 10px;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .cart-footer {
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .cart-actions {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-actions .btn {
+            margin-bottom: 10px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            animation: modalFadeIn 0.3s;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 20px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        /* Product Modal */
+        .product-modal {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .product-images {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .main-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .thumbnail-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .thumbnail {
+            width: 70px;
+            height: 70px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-details {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .product-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .product-rating-modal {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+
+        .product-price-modal {
+            margin-bottom: 20px;
+        }
+
+        .current-price-modal {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .original-price-modal {
+            font-size: 18px;
+            color: var(--gray);
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+
+        .discount-badge {
+            background-color: var(--secondary);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .product-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .variant-section {
+            margin-bottom: 20px;
+        }
+
+        .variant-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .variant-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .variant-option {
+            padding: 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: white;
+            transition: all 0.3s;
+        }
+
+        .variant-option:hover, .variant-option.selected {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .quantity-control button {
+            width: 40px;
+            height: 40px;
+            background-color: #f0f0f0;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .quantity-control input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            margin: 0 5px;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .product-actions .btn {
+            flex: 1;
+            padding: 12px;
+        }
+
+        /* Auth Modal */
+        .auth-form {
+            padding: 30px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form-footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .form-footer p {
+            margin-top: 15px;
+            color: var(--gray);
+        }
+
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+            min-height: calc(100vh - 300px);
+            padding: 40px 0;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .dashboard-nav {
+            flex: 0 0 250px;
+        }
+
+        .dashboard-nav ul {
+            list-style: none;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .dashboard-nav li {
+            border-bottom: 1px solid #eee;
+        }
+
+        .dashboard-nav li:last-child {
+            border-bottom: none;
+        }
+
+        .dashboard-nav a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: var(--dark);
+            transition: all 0.3s;
+        }
+
+        .dashboard-nav a:hover, .dashboard-nav a.active {
+            background-color: #f5f5f5;
+            color: var(--primary);
+        }
+
+        .dashboard-nav i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .dashboard-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .dashboard-section {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 3px solid var(--primary);
+        }
+
+        .profile-info h2 {
+            margin-bottom: 5px;
+        }
+
+        .profile-info p {
+            color: var(--gray);
+        }
+
+        .avatar-upload {
+            position: relative;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .avatar-upload input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+        }
+
+        .form-col {
+            flex: 1;
+            min-width: 250px;
+            padding: 0 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Orders */
+        .order-item {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-status {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background-color: #FFF3E0;
+            color: #E65100;
+        }
+
+        .status-processing {
+            background-color: #E3F2FD;
+            color: #1565C0;
+        }
+
+        .status-shipped {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+        }
+
+        .status-delivered {
+            background-color: #E8F5E9;
+            color: #1B5E20;
+        }
+
+        .status-cancelled {
+            background-color: #FFEBEE;
+            color: #C62828;
+        }
+
+        .order-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Addresses */
+        .address-item {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .address-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .default-badge {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .address-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        /* Checkout Modal */
+        .checkout-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .checkout-form-col {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .checkout-summary {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .checkout-item {
+            display: flex;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .checkout-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-right: 15px;
+        }
+
+        .checkout-totals {
+            margin-top: 20px;
+        }
+
+        .checkout-total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .checkout-total-row:last-child {
+            border-bottom: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .payment-methods {
+            margin-top: 20px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .payment-method input {
+            margin-right: 10px;
+        }
+
+        .payment-method-label {
+            display: flex;
+            align-items: center;
+        }
+
+        .payment-method-label i {
+            margin-right: 10px;
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+            
+            .search-bar {
+                order: 3;
+                margin: 15px 0;
+                max-width: 100%;
+            }
+            
+            .product-modal {
+                flex-direction: column;
+            }
+            
+            .dashboard {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                overflow-x: auto;
+                white-space: nowrap;
+                padding-bottom: 5px;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .products-list .product-card {
+                flex-direction: column;
+            }
+            
+            .products-list .product-image {
+                width: 100%;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .top-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
+            
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+            
+            .modal-content {
+                margin: 20px auto;
+                width: 95%;
+            }
+        }
+    </style>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div>বাংলাদেশের সেরা অনলাইন শপিং প্ল্যাটফর্ম</div>
+            <div class="top-links">
+                <a href="#"><i class="fas fa-phone-alt"></i> 09678-111222</a>
+                <a href="#"><i class="fas fa-envelope"></i> support@smartmart.com</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo" onclick="showPage('home'); return false;">
+                    <i class="fas fa-shopping-basket"></i> SmartMart
+                </a>
+                
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="পণ্য খুঁজুন..." oninput="handleSearch()">
+                    <button onclick="searchProducts()"><i class="fas fa-search"></i></button>
+                    <div class="search-suggestions" id="searchSuggestions"></div>
+                </div>
+                
+                <div class="header-actions">
+                    <div class="header-action" onclick="toggleWishlistPage()">
+                        <i class="fas fa-heart"></i>
+                        <span class="badge" id="wishlistCount">0</span>
+                    </div>
+                    
+                    <div class="header-action" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge" id="cartCount">0</span>
+                    </div>
+                    
+                    <div class="auth-buttons" id="authButtons">
+                        <button class="auth-btn btn-outline" onclick="showAuthModal('login')">লগ ইন</button>
+                        <button class="auth-btn btn" onclick="showAuthModal('register')">রেজিস্টার</button>
+                    </div>
+                    
+                    <div class="user-profile" id="userProfile" onclick="toggleUserMenu()">
+                        <img src="https://via.placeholder.com/40x40?text=User" alt="User" class="user-avatar" id="userAvatar">
+                        <span class="user-name" id="userName">User</span>
+                        <div class="user-menu" id="userMenu">
+                            <a href="#" onclick="showPage('dashboard'); return false;"><i class="fas fa-user"></i> প্রোফাইল</a>
+                                                        <a href="#" onclick="showPage('dashboard'); return false;"><i class="fas fa-user"></i> প্রোফাইল</a>
+                            <a href="#" onclick="showPage('orders'); return false;"><i class="fas fa-shopping-bag"></i> অর্ডার</a>
+                            <a href="#" onclick="showPage('wishlist'); return false;"><i class="fas fa-heart"></i> প্রিয় তালিকা</a>
+                            <a href="#" onclick="showPage('addresses'); return false;"><i class="fas fa-map-marker-alt"></i> ঠিকানা</a>
+                            <a href="#" onclick="logout(); return false;"><i class="fas fa-sign-out-alt"></i> লগ আউট</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home'); return false;" class="active">হোম</a></li>
+                <li><a href="#" onclick="showPage('shop'); return false;">শপ</a></li>
+                <li><a href="#" onclick="showCategory('electronics'); return false;">ইলেকট্রনিক্স</a></li>
+                <li><a href="#" onclick="showCategory('fashion'); return false;">ফ্যাশন</a></li>
+                <li><a href="#" onclick="showCategory('groceries'); return false;">মুদিখানা</a></li>
+                <li><a href="#" onclick="showCategory('books'); return false;">বই</a></li>
+                <li><a href="#" onclick="showCategory('health'); return false;">স্বাস্থ্য</a></li>
+                <li><a href="#" onclick="showCategory('sports'); return false;">খেলাধুলা</a></li>
+                <li><a href="#" onclick="showPage('offers'); return false;">অফার</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>SmartMart এ স্বাগতম</h1>
+            <p>বাংলাদেশের সেরা অনলাইন শপিং অভিজ্ঞতা। হাজারো পণ্য একই স্থানে সেরা মূল্যে।</p>
+            <a href="#" class="btn" onclick="showPage('shop'); return false;">এখনই শপিং করুন</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Featured Categories -->
+        <section class="categories">
+            <h2 class="section-title">ক্যাটাগরি</h2>
+            <div class="category-grid">
+                <div class="category-card" onclick="showCategory('electronics'); return false;">
+                    <div class="category-img">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3>ইলেকট্রনিক্স</h3>
+                        <p>১০০+ পণ্য</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="showCategory('fashion'); return false;">
+                    <div class="category-img">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3>ফ্যাশন</h3>
+                        <p>২০০+ পণ্য</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="showCategory('groceries'); return false;">
+                    <div class="category-img">
+                        <i class="fas fa-shopping-basket"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3>মুদিখানা</h3>
+                        <p>১৫০+ পণ্য</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="showCategory('books'); return false;">
+                    <div class="category-img">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3>বই</h3>
+                        <p>৫০০+ পণ্য</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="showCategory('health'); return false;">
+                    <div class="category-img">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3>স্বাস্থ্য</h3>
+                        <p>১০০+ পণ্য</p>
+                    </div>
+                </div>
+                <div class="category-card" onclick="showCategory('sports'); return false;">
+                    <div class="category-img">
+                        <i class="fas fa-football-ball"></i>
+                    </div>
+                    <div class="category-info">
+                        <h3>খেলাধুলা</h3>
+                        <p>৭৫+ পণ্য</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="featured-products">
+            <div class="section-header">
+                <h2 class="section-title">ফিচার্ড পণ্য</h2>
+                <a href="#" class="btn-outline" onclick="showPage('shop'); return false;">সব দেখুন</a>
+            </div>
+            <div class="products-grid" id="featuredProducts">
+                <!-- Featured products will be loaded here by JavaScript -->
+            </div>
+        </section>
+
+        <!-- All Products -->
+        <section class="products-section">
+            <div class="section-header">
+                <h2 class="section-title">সকল পণ্য</h2>
+                <div class="view-toggle">
+                    <button class="active" onclick="toggleView('grid')"><i class="fas fa-th-large"></i></button>
+                    <button onclick="toggleView('list')"><i class="fas fa-list"></i></button>
+                </div>
+            </div>
+            <div class="products-grid" id="allProducts">
+                <!-- All products will be loaded here by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>SmartMart</h3>
+                    <p>বাংলাদেশের সেরা অনলাইন শপিং প্ল্যাটফর্ম। হাজারো পণ্য একই স্থানে সেরা মূল্যে।</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>গুরুত্বপূর্ণ লিংক</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" onclick="showPage('home'); return false;">হোম</a></li>
+                        <li><a href="#" onclick="showPage('shop'); return false;">শপ</a></li>
+                        <li><a href="#" onclick="showPage('offers'); return false;">অফার</a></li>
+                        <li><a href="#" onclick="showPage('about'); return false;">আমাদের সম্পর্কে</a></li>
+                        <li><a href="#" onclick="showPage('contact'); return false;">যোগাযোগ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>গ্রাহক সেবা</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">অর্ডার ট্র্যাক করুন</a></li>
+                        <li><a href="#">রিটার্ন পলিসি</a></li>
+                        <li><a href="#">প্রাইভেসি পলিসি</a></li>
+                        <li><a href="#">শর্তাবলী</a></li>
+                        <li><a href="#">সাহায্য</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>নিউজলেটার</h3>
+                    <p>আমাদের সর্বশেষ অফার এবং ডিল সম্পর্কে জানতে সাবস্ক্রাইব করুন</p>
+                    <div class="newsletter">
+                        <input type="email" id="newsletterEmail" placeholder="আপনার ইমেইল ঠিকানা">
+                        <button class="btn" onclick="subscribeNewsletter(); return false;">সাবস্ক্রাইব</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 SmartMart. সকল অধিকার সংরক্ষিত।</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sidebar Cart -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>আপনার কার্ট</h3>
+            <button class="close-cart" onclick="closeCart()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-body" id="cartItems">
+            <!-- Cart items will be loaded here by JavaScript -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>মোট:</span>
+                <span id="cartTotal">৳0</span>
+            </div>
+            <div class="cart-actions">
+                <button class="btn" onclick="proceedToCheckout()">চেকআউট</button>
+                <button class="btn-outline" onclick="clearCart()">কার্ট খালি করুন</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content product-modal">
+            <div class="modal-header">
+                <h3 id="modalProductTitle">পণ্যের নাম</h3>
+                <button class="close-modal" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="product-images">
+                    <div class="main-image" id="modalMainImage">
+                        <!-- Main product image will be loaded here -->
+                    </div>
+                    <div class="thumbnail-container">
+                        <!-- Thumbnails will be loaded here -->
+                    </div>
+                </div>
+                <div class="product-details">
+                    <h2 class="product-title" id="modalProductName">পণ্যের নাম</h2>
+                    <div class="product-meta">
+                        <div class="product-rating-modal">
+                            <div class="stars" id="modalStars"></div>
+                            <span class="rating-count" id="modalRatingCount">(0 রিভিউ)</span>
+                        </div>
+                        <span class="stock-status">স্টকে আছে</span>
+                    </div>
+                    <div class="product-price-modal">
+                        <span class="current-price-modal" id="modalCurrentPrice">৳0</span>
+                        <span class="original-price-modal" id="modalOriginalPrice"></span>
+                        <span class="discount-badge" id="modalDiscount"></span>
+                    </div>
+                    <div class="product-description" id="modalDescription">
+                        পণ্যের বিস্তারিত বর্ণনা এখানে থাকবে।
+                    </div>
+                    
+                    <div class="variant-section" id="modalSizeVariant">
+                        <h4 class="variant-title">সাইজ:</h4>
+                        <div class="variant-options" id="modalSizeOptions">
+                            <!-- Size options will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="variant-section" id="modalColorVariant">
+                        <h4 class="variant-title">রং:</h4>
+                        <div class="variant-options" id="modalColorOptions">
+                            <!-- Color options will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="quantity-control">
+                        <h4 class="variant-title">পরিমাণ:</h4>
+                        <button onclick="changeQuantity(-1)">-</button>
+                        <input type="number" id="modalQuantity" value="1" min="1">
+                        <button onclick="changeQuantity(1)">+</button>
+                    </div>
+                    
+                    <div class="product-actions">
+                        <button class="btn" onclick="addToCartFromModal()">
+                            <i class="fas fa-shopping-cart"></i> কার্টে যোগ করুন
+                        </button>
+                        <button class="btn btn-secondary" onclick="buyNow()">
+                            <i class="fas fa-bolt"></i> এখনই কিনুন
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="authTitle">লগ ইন করুন</h3>
+                <button class="close-modal" onclick="closeAuthModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form class="auth-form" id="authForm">
+                    <div class="form-group">
+                        <label for="authEmail">ইমেইল</label>
+                        <input type="email" id="authEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="authPassword">পাসওয়ার্ড</label>
+                        <input type="password" id="authPassword" required>
+                    </div>
+                    <div class="form-group" id="confirmPasswordField" style="display: none;">
+                        <label for="authConfirmPassword">পাসওয়ার্ড নিশ্চিত করুন</label>
+                        <input type="password" id="authConfirmPassword">
+                    </div>
+                    <div class="form-footer">
+                        <button type="button" class="btn" id="authSubmit">লগ ইন</button>
+                        <p id="authToggleText">নতুন গ্রাহক? <a href="#" onclick="showAuthModal('register'); return false;">একাউন্ট তৈরি করুন</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal" id="checkoutModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>চেকআউট</h3>
+                <button class="close-modal" onclick="closeCheckoutModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form class="checkout-form" id="checkoutForm">
+                    <div class="checkout-form-col">
+                        <h4>বিলিং তথ্য</h4>
+                        <div class="form-group">
+                            <label for="checkoutName">পুরো নাম</label>
+                            <input type="text" id="checkoutName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutEmail">ইমেইল</label>
+                            <input type="email" id="checkoutEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutPhone">ফোন নম্বর</label>
+                            <input type="tel" id="checkoutPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutDistrict">জেলা</label>
+                            <select id="checkoutDistrict" required>
+                                <option value="">নির্বাচন করুন</option>
+                                <option value="dhaka">ঢাকা</option>
+                                <option value="chittagong">চট্টগ্রাম</option>
+                                <option value="khulna">খুলনা</option>
+                                <option value="rajshahi">রাজশাহী</option>
+                                <option value="sylhet">সিলেট</option>
+                                <option value="barisal">বরিশাল</option>
+                                <option value="rangpur">রংপুর</option>
+                                <option value="mymensingh">ময়মনসিংহ</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutAddress">সম্পূর্ণ ঠিকানা</label>
+                            <textarea id="checkoutAddress" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutNotes">অর্ডার নোট (ঐচ্ছিক)</label>
+                            <textarea id="checkoutNotes" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div class="checkout-form-col">
+                        <div class="checkout-summary">
+                            <h4>আপনার অর্ডার</h4>
+                            <div class="checkout-items" id="checkoutItems">
+                                <!-- Order items will be loaded here -->
+                            </div>
+                            <div class="checkout-totals">
+                                <div class="checkout-total-row">
+                                    <span>সাবটোটাল:</span>
+                                    <span id="checkoutSubtotal">৳0</span>
+                                </div>
+                                <div class="checkout-total-row">
+                                    <span>ডেলিভারি চার্জ:</span>
+                                    <span id="checkoutDelivery">৳60</span>
+                                </div>
+                                <div class="checkout-total-row">
+                                    <span>মোট:</span>
+                                    <span id="checkoutTotal">৳0</span>
+                                </div>
+                            </div>
+                            
+                            <div class="payment-methods">
+                                <h4>পেমেন্ট পদ্ধতি</h4>
+                                <div class="payment-method">
+                                    <input type="radio" id="cashOnDelivery" name="paymentMethod" value="cashOnDelivery" checked>
+                                    <label for="cashOnDelivery" class="payment-method-label">
+                                        <i class="fas fa-money-bill-wave"></i>
+                                        <span>ক্যাশ অন ডেলিভারি</span>
+                                    </label>
+                                </div>
+                                <div class="payment-method">
+                                    <input type="radio" id="bkash" name="paymentMethod" value="bkash">
+                                    <label for="bkash" class="payment-method-label">
+                                        <i class="fas fa-mobile-alt"></i>
+                                        <span>bKash</span>
+                                    </label>
+                                </div>
+                                <div class="payment-method">
+                                    <input type="radio" id="card" name="paymentMethod" value="card">
+                                    <label for="card" class="payment-method-label">
+                                        <i class="far fa-credit-card"></i>
+                                        <span>ক্রেডিট/ডেবিট কার্ড</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn" style="width: 100%; margin-top: 20px;">
+                                অর্ডার নিশ্চিত করুন
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Address Modal -->
+    <div class="modal" id="addressModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>ঠিকানা যোগ করুন</h3>
+                <button class="close-modal" onclick="closeAddressModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <form class="auth-form" id="addressForm">
+                    <div class="form-group">
+                        <label for="addressName">ঠিকানার নাম</label>
+                        <input type="text" id="addressName" placeholder="বাসা/অফিস" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="addressFullName">পুরো নাম</label>
+                        <input type="text" id="addressFullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="addressPhone">ফোন নম্বর</label>
+                        <input type="tel" id="addressPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="addressDistrict">জেলা</label>
+                        <select id="addressDistrict" required>
+                            <option value="">নির্বাচন করুন</option>
+                            <option value="dhaka">ঢাকা</option>
+                            <option value="chittagong">চট্টগ্রাম</option>
+                            <option value="khulna">খুলনা</option>
+                            <option value="rajshahi">রাজশাহী</option>
+                            <option value="sylhet">সিলেট</option>
+                            <option value="barisal">বরিশাল</option>
+                            <option value="rangpur">রংপুর</option>
+                            <option value="mymensingh">ময়মনসিংহ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="addressFull">সম্পূর্ণ ঠিকানা</label>
+                        <textarea id="addressFull" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="addressDefault">
+                            <input type="checkbox" id="addressDefault"> ডিফল্ট ঠিকানা হিসেবে সেট করুন
+                        </label>
+                    </div>
+                    <div class="form-footer">
+                        <button type="submit" class="btn">ঠিকানা সংরক্ষণ করুন</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage">This is a toast message</span>
+    </div>
+
+    <!-- Pages -->
+    <div class="container">
+        <!-- Shop Page -->
+        <div class="page" id="shop">
+            <div class="section-header">
+                <h2 class="section-title">সকল পণ্য</h2>
+                <div class="filters">
+                    <select id="categoryFilter" onchange="filterProducts()">
+                        <option value="">সব ক্যাটাগরি</option>
+                        <option value="electronics">ইলেকট্রনিক্স</option>
+                        <option value="fashion">ফ্যাশন</option>
+                        <option value="groceries">মুদিখানা</option>
+                        <option value="books">বই</option>
+                        <option value="health">স্বাস্থ্য</option>
+                        <option value="sports">খেলাধুলা</option>
+                    </select>
+                    <select id="sortFilter" onchange="sortProducts()">
+                        <option value="default">ডিফল্ট সাজান</option>
+                        <option value="price-low">দাম: কম থেকে বেশি</option>
+                        <option value="price-high">দাম: বেশি থেকে কম</option>
+                        <option value="rating">রেটিং</option>
+                        <option value="newest">নতুন</option>
+                    </select>
+                    <div class="price-filter">
+                        <span>দাম: </span>
+                        <input type="range" id="priceRange" min="0" max="200000" step="1000" value="200000" oninput="updatePriceDisplay()">
+                        <span id="priceDisplay">৳200,000</span>
+                    </div>
+                </div>
+            </div>
+            <div class="products-grid" id="shopProducts">
+                <!-- Filtered products will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div class="page" id="dashboard">
+            <div class="dashboard">
+                <div class="dashboard-nav">
+                    <ul>
+                        <li><a href="#" class="active" onclick="showDashboardSection('profile'); return false;"><i class="fas fa-user"></i> প্রোফাইল</a></li>
+                        <li><a href="#" onclick="showDashboardSection('orders'); return false;"><i class="fas fa-shopping-bag"></i> অর্ডার</a></li>
+                        <li><a href="#" onclick="showDashboardSection('wishlist'); return false;"><i class="fas fa-heart"></i> প্রিয় তালিকা</a></li>
+                        <li><a href="#" onclick="showDashboardSection('addresses'); return false;"><i class="fas fa-map-marker-alt"></i> ঠিকানা</a></li>
+                        <li><a href="#" onclick="logout(); return false;"><i class="fas fa-sign-out-alt"></i> লগ আউট</a></li>
+                    </ul>
+                </div>
+                <div class="dashboard-content">
+                    <!-- Profile Section -->
+                    <div class="dashboard-section" id="profileSection">
+                        <div class="profile-header">
+                            <img src="https://via.placeholder.com/100x100?text=User" alt="Profile" class="profile-avatar" id="profileAvatar">
+                            <div class="profile-info">
+                                <h2 id="profileUserName">User Name</h2>
+                                <p>সদস্য since January 2023</p>
+                                <div class="avatar-upload">
+                                    <button class="btn-outline">ছবি পরিবর্তন</button>
+                                    <input type="file" id="avatarUpload" accept="image/*">
+                                </div>
+                            </div>
+                        </div>
+                        <form>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="profileName">পুরো নাম</label>
+                                    <input type="text" id="profileName">
+                                </div>
+                                <div class="form-col">
+                                    <label for="profileEmail">ইমেইল</label>
+                                    <input type="email" id="profileEmail">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <label for="profilePhone">ফোন নম্বর</label>
+                                    <input type="tel" id="profilePhone">
+                                </div>
+                                <div class="form-col">
+                                    <label for="profilePassword">পাসওয়ার্ড</label>
+                                    <input type="password" id="profilePassword" placeholder="নতুন পাসওয়ার্ড">
+                                </div>
+                            </div>
+                            <button type="button" class="btn" onclick="updateProfile()">আপডেট প্রোফাইল</button>
+                        </form>
+                    </div>
+
+                    <!-- Orders Section -->
+                    <div class="dashboard-section" id="ordersSection" style="display: none;">
+                        <h2>আপনার অর্ডার</h2>
+                        <div id="userOrders">
+                            <!-- User orders will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Wishlist Section -->
+                    <div class="dashboard-section" id="wishlistSection" style="display: none;">
+                        <h2>আপনার প্রিয় তালিকা</h2>
+                        <div id="wishlistItems">
+                            <!-- Wishlist items will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Addresses Section -->
+                    <div class="dashboard-section" id="addressesSection" style="display: none;">
+                        <div class="section-header">
+                            <h2>আপনার ঠিকানা</h2>
+                            <button class="btn" onclick="showAddressModal()">নতুন ঠিকানা যোগ করুন</button>
+                        </div>
+                        <div id="userAddresses">
+                            <!-- User addresses will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other Pages -->
+        <div class="page" id="wishlist">
+            <h2 class="section-title">আপনার প্রিয় তালিকা</h2>
+            <div id="wishlistPageItems">
+                <!-- Wishlist items will be loaded here -->
+            </div>
+        </div>
+
+        <div class="page" id="orders">
+            <h2 class="section-title">আপনার অর্ডার</h2>
+            <div id="ordersPageContent">
+                <!-- Orders will be loaded here -->
+            </div>
+        </div>
+
+        <div class="page" id="addresses">
+            <div class="section-header">
+                <h2 class="section-title">আপনার ঠিকানা</h2>
+                <button class="btn" onclick="showAddressModal()">নতুন ঠিকানা যোগ করুন</button>
+            </div>
+            <div id="addressesPageContent">
+                <!-- Addresses will be loaded here -->
+            </div>
+        </div>
+
+        <div class="page" id="about">
+            <h2 class="section-title">আমাদের সম্পর্কে</h2>
+            <p>SmartMart হল বাংলাদেশের একটি领先的在线购物平台，致力于为客户提供最好的购物体验。</p>
+        </div>
+
+        <div class="page" id="contact">
+            <h2 class="section-title">যোগাযোগ</h2>
+            <p>আমাদের সাথে যোগাযোগ করুন: support@smartmart.com</p>
+        </div>
+
+        <div class="page" id="offers">
+            <h2 class="section-title">বিশেষ অফার</h2>
+            <p>আমাদের বিশেষ অফারগুলো দেখুন</p>
+        </div>
+    </div>
+
+    <!-- Essential JavaScript -->
+    <script>
+        // Basic page navigation
+        function showPage(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            
+            document.getElementById(page).classList.add('active');
+            document.querySelector(`[onclick="showPage('${page}')"]`).classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function showDashboardSection(section) {
+            document.querySelectorAll('.dashboard-section').forEach(sec => sec.style.display = 'none');
+            document.getElementById(section + 'Section').style.display = 'block';
+            
+            // Update active link
+            document.querySelectorAll('.dashboard-nav a').forEach(a => a.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Toggle functions
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('active');
+        }
+
+        function closeCart() {
+            document.getElementById('cartSidebar').classList.remove('active');
+        }
+
+        function toggleUserMenu() {
+            document.getElementById('userMenu').classList.toggle('active');
+        }
+
+        function toggleWishlistPage() {
+            if (document.getElementById('userProfile').style.display === 'flex') {
+                showPage('wishlist');
+            } else {
+                showAuthModal('login');
+            }
+        }
+
+        // Modal functions
+        function showAuthModal(type) {
+            document.getElementById('authModal').style.display = 'block';
+            document.getElementById('authTitle').textContent = type === 'login' ? 'লগ ইন করুন' : 'রেজিস্ট্রেশন করুন';
+            document.getElementById('authSubmit').textContent = type === 'login' ? 'লগ ইন' : 'রেজিস্ট্রেশন';
+            document.getElementById('confirmPasswordField').style.display = type === 'register' ? 'block' : 'none';
+            document.getElementById('authToggleText').innerHTML = type === 'login' 
+                ? 'নতুন গ্রাহক? <a href="#" onclick="showAuthModal(\'register\'); return false;">একাউন্ট তৈরি করুন</a>' 
+                : 'ইতিমধ্যে একাউন্ট আছে? <a href="#" onclick="showAuthModal(\'login\'); return false;">লগ ইন করুন</a>';
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').style.display = 'none';
+        }
+
+        function showAddressModal() {
+            document.getElementById('addressModal').style.display = 'block';
+        }
+
+        function closeAddressModal() {
+            document.getElementById('addressModal').style.display = 'none';
+        }
+
+        function showCheckoutModal() {
+            document.getElementById('checkoutModal').style.display = 'block';
+        }
+
+        function closeCheckoutModal() {
+            document.getElementById('checkoutModal').style.display = 'none';
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').style.display = 'none';
+        }
+
+        // Toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize the home page as active
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('home').classList.add('active');
+        });
+    </script>

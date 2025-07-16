@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri&display=swap" rel="stylesheet">
+    <title>SmartMart - আপনার বিশ্বস্ত অনলাইন শপিং সঙ্গী</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* font-family: 'Arial', sans-serif; */
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        body,
+        button,
+        input,
+        textarea,
+        select {
+          font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 500px;
+            margin: 0 2rem;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .header-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .header-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .cart-count, .wishlist-count {
+            background: #ff4757;
+            border-radius: 50%;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.8rem;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Navigation */
+        .nav {
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .current-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .original-price {
+            font-size: 1rem;
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .discount-badge {
+            background: #ff4757;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #ffd700;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #333;
+            border: 1px solid #ddd;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+            transform: translateY(-2px);
+        }
+
+        /* Filters */
+        .filters {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .filter-row {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #999;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #667eea;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            z-index: 3000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        /* Cart */
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-btn:hover {
+            background: #5a6fd8;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #667eea;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #555;
+            color: #ccc;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-bar {
+                max-width: 100%;
+                margin: 0;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+
+            .filter-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+        }
+
+        /* Category specific styles */
+        .category-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .category-header h1 {
+            font-size: 2.5rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .category-header p {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .featured-badge {
+            background: #28a745;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        /* Auth forms */
+        .auth-form {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .auth-form h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+        }
+    </style>
+
+    
+</head>
+<body>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo" onclick="showPage('home')">SmartMart</a>
+            
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="আপনার পছন্দের পণ্য খুঁজুন..." />
+            </div>
+            
+            <div class="header-actions">
+                <button class="header-btn" onclick="showPage('cart')">
+                    🛒 কার্ট
+                    <span id="cartCount" class="cart-count">0</span>
+                </button>
+                <button class="header-btn" onclick="showPage('wishlist')">
+                    ❤️ উইশলিস্ট
+                    <span id="wishlistCount" class="wishlist-count">0</span>
+                </button>
+                <button id="authBtn" class="header-btn" onclick="showPage('auth')">
+                    👤 লগইন
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div class="nav-links">
+                <a href="#" onclick="showPage('home')" class="active">হোম</a>
+                <a href="#" onclick="showPage('products')">সব পণ্য</a>
+                <a href="#" onclick="filterByCategory('electronics')">ইলেকট্রনিক্স</a>
+                <a href="#" onclick="filterByCategory('fashion')">ফ্যাশন</a>
+                <a href="#" onclick="filterByCategory('groceries')">গ্রোসারি</a>
+                <a href="#" onclick="filterByCategory('books')">বই</a>
+                <a href="#" onclick="filterByCategory('health')">স্বাস্থ্য</a>
+                <a href="#" onclick="filterByCategory('sports')">খেলাধুলা</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <div class="category-header">
+                <h1>SmartMart এ আপনাকে স্বাগতম</h1>
+                <p>সেরা পণ্য, সেরা দাম, সেরা সেবা</p>
+            </div>
+            
+            <h2>ফিচার্ড পণ্য</h2>
+            <div id="featuredProducts" class="product-grid">
+                <!-- Featured products will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Products Page -->
+        <div id="products" class="page">
+            <div class="category-header">
+                <h1>সব পণ্য</h1>
+                <p>আমাদের সম্পূর্ণ পণ্যের সংগ্রহ দেখুন</p>
+            </div>
+            
+            <!-- Filters -->
+            <div class="filters">
+                <div class="filter-row">
+                    <div class="filter-group">
+                        <label>ক্যাটেগরি</label>
+                        <select id="categoryFilter" onchange="applyFilters()">
+                            <option value="">সব ক্যাটেগরি</option>
+                            <option value="electronics">ইলেকট্রনিক্স</option>
+                            <option value="fashion">ফ্যাশন</option>
+                            <option value="groceries">গ্রোসারি</option>
+                            <option value="books">বই</option>
+                            <option value="health">স্বাস্থ্য</option>
+                            <option value="sports">খেলাধুলা</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>সর্ট করুন</label>
+                        <select id="sortFilter" onchange="applyFilters()">
+                            <option value="">ডিফল্ট</option>
+                            <option value="price-low">দাম: কম থেকে বেশি</option>
+                            <option value="price-high">দাম: বেশি থেকে কম</option>
+                            <option value="rating">রেটিং</option>
+                            <option value="discount">ছাড়</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>সর্বোচ্চ দাম: <span id="priceDisplay">৫০০০০</span>৳</label>
+                        <input type="range" id="priceRange" min="0" max="200000" value="200000" oninput="updatePriceDisplay()">
+                    </div>
+                </div>
+            </div>
+            
+            <div id="allProducts" class="product-grid">
+                <!-- All products will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Cart Page -->
+        <div id="cart" class="page">
+            <div class="category-header">
+                <h1>আপনার কার্ট</h1>
+                <p>আপনার নির্বাচিত পণ্যসমূহ</p>
+            </div>
+            
+            <div id="cartItems">
+                <!-- Cart items will be loaded here -->
+            </div>
+            
+            <div id="cartSummary" style="background: white; padding: 1.5rem; border-radius: 15px; margin-top: 2rem;">
+                <!-- Cart summary will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Wishlist Page -->
+        <div id="wishlist" class="page">
+            <div class="category-header">
+                <h1>আপনার উইশলিস্ট</h1>
+                <p>আপনার পছন্দের পণ্যসমূহ</p>
+            </div>
+            
+            <div id="wishlistItems" class="product-grid">
+                <!-- Wishlist items will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Auth Page -->
+        <div id="auth" class="page">
+            <div class="auth-form">
+                <h2>লগইন করুন</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label>ইমেইল</label>
+                        <input type="email" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>পাসওয়ার্ড</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">লগইন করুন</button>
+                </form>
+                
+                <div style="text-align: center; margin: 1rem 0;">
+                    <span>অথবা</span>
+                </div>
+                
+                <button onclick="showRegisterForm()" class="btn btn-secondary" style="width: 100%;">নতুন অ্যাকাউন্ট তৈরি করুন</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SmartMart</h3>
+                <p>আপনার বিশ্বস্ত অনলাইন শপিং সঙ্গী। সেরা পণ্য, সেরা দাম, সেরা সেবা।</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>কাস্টমার সেবা</h3>
+                <ul>
+                    <li><a href="#">যোগাযোগ</a></li>
+                    <li><a href="#">সাহায্য</a></li>
+                    <li><a href="#">রিটার্ন পলিসি</a></li>
+                    <li><a href="#">শিপিং তথ্য</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>আমাদের সম্পর্কে</h3>
+                <ul>
+                    <li><a href="#">কোম্পানি</a></li>
+                    <li><a href="#">ক্যারিয়ার</a></li>
+                    <li><a href="#">প্রাইভেসি পলিসি</a></li>
+                    <li><a href="#">টার্মস অ্যান্ড কন্ডিশন</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>নিউজলেটার</h3>
+                <p>আমাদের সর্বশেষ অফার এবং আপডেট পান</p>
+                <div class="newsletter-form">
+                    <input type="email" id="newsletterEmail" placeholder="আপনার ইমেইল">
+                    <button class="btn btn-primary" onclick="subscribeNewsletter()">সাবস্ক্রাইব</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 SmartMart. সব অধিকার সংরক্ষিত।</p>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let currentUser = null;
+        let currentPage = 'home';
+        let cart = [];
+        let wishlist = [];
+        let products = [];
+        let filteredProducts = [];
+        let addresses = [];
+        let orders = [];
+        let selectedProductId = null;
+        let selectedVariants = {};
+
+        // Sample data
+        const sampleProducts = [
+            {
+                id: 1,
+                name: "Samsung Galaxy S23",
+                category: "electronics",
+                price: 89999,
+                originalPrice: 99999,
+                discount: 10,
+                rating: 4.5,
+                reviews: 128,
+                image: "https://via.placeholder.com/300x300?text=Galaxy+S23",
+                description: "সর্বশেষ Samsung Galaxy S23 স্মার্টফোন। উন্নত ক্যামেরা এবং দ্রুত প্রসেসর।",
+                stock: 25,
+                variants: {
+                    size: ["128GB", "256GB", "512GB"],
+                    color: ["কালো", "সাদা", "গোলাপী"]
+                },
+                featured: true
+            },
+            {
+                id: 2,
+                name: "Apple MacBook Air M2",
+                category: "electronics",
+                price: 134999,
+                originalPrice: 149999,
+                discount: 10,
+                rating: 4.8,
+                reviews: 89,
+                image: "https://via.placeholder.com/300x300?text=MacBook+Air",
+                description: "নতুন Apple M2 চিপ সহ MacBook Air। অতি দ্রুত এবং শক্তিশালী।",
+                stock: 15,
+                variants: {
+                    size: ["8GB RAM", "16GB RAM"],
+                    color: ["Space Gray", "Silver", "Gold"]
+                },
+                featured: true
+            },
+            {
+                id: 3,
+                name: "পুরুষদের ক্যাজুয়াল শার্ট",
+                category: "fashion",
+                price: 1599,
+                originalPrice: 1999,
+                discount: 20,
+                rating: 4.2,
+                reviews: 45,
+                image: "https://via.placeholder.com/300x300?text=Men+Shirt",
+                description: "আরামদায়ক কটন ক্যাজুয়াল শার্ট। দৈনন্দিন পরিধানের জন্য উপযুক্ত।",
+                stock: 50,
+                variants: {
+                    size: ["S", "M", "L", "XL", "XXL"],
+                    color: ["নীল", "সাদা", "কালো", "লাল"]
+                },
+                featured: false
+            },
+            {
+                id: 4,
+                name: "বাসমতী চাল ৫ কেজি",
+                category: "groceries",
+                price: 650,
+                originalPrice: 700,
+                discount: 7,
+                rating: 4.3,
+                reviews: 234,
+                image: "https://via.placeholder.com/300x300?text=Basmati+Rice",
+                description: "উচ্চমানের বাসমতী চাল। সুগন্ধি এবং স্বাদে অনন্য।",
+                stock: 100,
+                variants: {},
+                featured: true
+            },
+            {
+                id: 5,
+                name: "হুমায়ূন আহমেদের বই সংগ্রহ",
+                category: "books",
+                price: 899,
+                originalPrice: 1200,
+                discount: 25,
+                rating: 4.7,
+                reviews: 156,
+                image: "https://via.placeholder.com/300x300?text=Book+Collection",
+                description: "বিখ্যাত লেখক হুমায়ূন আহমেদের জনপ্রিয় বই সংগ্রহ।",
+                stock: 30,
+                variants: {},
+                featured: true
+            },
+            {
+                id: 6,
+                name: "ফেস ক্রিম ৫০মিলি",
+                category: "health",
+                price: 450,
+                originalPrice: 550,
+                discount: 18,
+                rating: 4.1,
+                reviews: 78,
+                image: "https://via.placeholder.com/300x300?text=Face+Cream",
+                description: "প্রাকৃতিক উপাদান দিয়ে তৈরি ফেস ক্রিম। ত্বকের যত্নে কার্যকর।",
+                stock: 75,
+                variants: {},
+                featured: false
+            },
+            {
+                id: 7,
+                name: "ফুটবল",
+                category: "sports",
+                price: 1299,
+                originalPrice: 1599,
+                discount: 19,
+                rating: 4.4,
+                reviews: 67,
+                image: "https://via.placeholder.com/300x300?text=Football",
+                description: "আন্তর্জাতিক মানের ফুটবল। খেলাধুলার জন্য উপযুক্ত।",
+                stock: 40,
+                variants: {
+                    size: ["Size 3", "Size 4", "Size 5"]
+                },
+                featured: false
+            },
+            {
+                id: 8,
+                name: "মহিলাদের হ্যান্ডব্যাগ",
+                category: "fashion",
+                price: 2499,
+                originalPrice: 2999,
+                discount: 17,
+                rating: 4.6,
+                reviews: 92,
+                image: "https://via.placeholder.com/300x300?text=Handbag",
+                description: "স্টাইলিশ এবং টেকসই হ্যান্ডব্যাগ। দৈনন্দিন ব্যবহারের জন্য।",
+                stock: 35,
+                variants: {
+                    color: ["কালো", "বাদামী", "লাল", "নীল"]
+                },
+                featured: true
+            }
+        ];
+
+        // Initialize the app
+        function init() {
+            products = [...sampleProducts];
+            filteredProducts = [...products];
+            loadFromStorage();
+            loadFeaturedProducts();
+            loadAllProducts();
+            updateCartUI();
+            updateWishlistUI();
+            updateAuthUI();
+            setupEventListeners();
+        }
+
+        // Event listeners
+        function setupEventListeners() {
+            document.getElementById('searchInput').addEventListener('input', handleSearch);
+            document.getElementById('priceRange').addEventListener('input', updatePriceDisplay);
+            
+            // Login form
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            
+            // Close modals when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal')) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Storage functions
+        function saveToStorage() {
+            const data = {
+                user: currentUser,
+                cart: cart,
+                wishlist: wishlist,
+                addresses: addresses,
+                orders: orders
+            };
+            
+            // In a real app, this would save to localStorage
+            // For demo purposes, we'll just keep it in memory
+            console.log('Saving to storage:', data);
+        }
+
+        function loadFromStorage() {
+            // In a real app, this would load from localStorage
+            // For demo purposes, we'll initialize with empty data
+            console.log('Loading from storage');
+        }
+
+        // Navigation
+        function showPage(pageName) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageName).classList.add('active');
+            
+            // Update nav links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            currentPage = pageName;
+            
+            // Load page specific content
+            switch(pageName) {
+                case 'home':
+                    loadFeaturedProducts();
+                    break;
+                case 'products':
+                    loadAllProducts();
+                    break;
+                case 'cart':
+                    loadCartItems();
+                    break;
+                case 'wishlist':
+                    loadWishlistItems();
+                    break;
+            }
+        }
+
+        // Product loading functions
+        function loadFeaturedProducts() {
+            const featuredProducts = products.filter(p => p.featured);
+            const container = document.getElementById('featuredProducts');
+            container.innerHTML = '';
+            
+            featuredProducts.forEach(product => {
+                container.appendChild(createProductCard(product));
+            });
+        }
+
+        function loadAllProducts() {
+            const container = document.getElementById('allProducts');
+            container.innerHTML = '';
+            
+            filteredProducts.forEach(product => {
+                container.appendChild(createProductCard(product));
+            });
+        }
+
+        function createProductCard(product) {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            
+            const stars = '⭐'.repeat(Math.floor(product.rating));
+            
+            card.innerHTML = `
+                ${product.discount > 0 ? `<div class="discount-badge">${product.discount}% ছাড়</div>` : ''}
+                ${product.featured ? `<div class="featured-badge">ফিচার্ড</div>` : ''}
+                <img src="${product.image}" alt="${product.name}" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-price">
+                        <span class="current-price">${formatPrice(product.price)}</span>
+                        ${product.originalPrice > product.price ? `<span class="original-price">${formatPrice(product.originalPrice)}</span>` : ''}
+                    </div>
+                    <div class="product-rating">
+                        <span class="stars">${stars}</span>
+                        <span>(${product.reviews} রিভিউ)</span>
+                    </div>
+                    <p style="color: #666; margin-bottom: 1rem;">${product.description}</p>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="addToCart(${product.id})">
+                            🛒 কার্টে যোগ করুন
+                        </button>
+                        <button class="btn btn-secondary" onclick="toggleWishlist(${product.id})">
+                            ${isInWishlist(product.id) ? '❤️' : '🤍'}
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Cart functions
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    quantity: 1
+                });
+            }
+            
+            updateCartUI();
+            saveToStorage();
+            showToast('পণ্যটি কার্টে যোগ করা হয়েছে!');
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+            loadCartItems();
+            saveToStorage();
+            showToast('পণ্যটি কার্ট থেকে সরানো হয়েছে!');
+        }
+
+        function updateCartQuantity(productId, newQuantity) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                if (newQuantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    item.quantity = newQuantity;
+                    updateCartUI();
+                    loadCartItems();
+                    saveToStorage();
+                }
+            }
+        }
+
+        function updateCartUI() {
+            const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = cartCount;
+        }
+
+        function loadCartItems() {
+            const container = document.getElementById('cartItems');
+            const summaryContainer = document.getElementById('cartSummary');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 2rem;">আপনার কার্ট খালি</p>';
+                summaryContainer.innerHTML = '';
+                return;
+            }
+            
+            container.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <p>${formatPrice(item.price)}</p>
+                    </div>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="updateCartQuantity(${item.id}, ${item.quantity - 1})">-</button>
+                        <span style="margin: 0 1rem;">${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateCartQuantity(${item.id}, ${item.quantity + 1})">+</button>
+                    </div>
+                    <div style="text-align: right;">
+                        <p><strong>${formatPrice(itemTotal)}</strong></p>
+                        <button class="btn btn-secondary" onclick="removeFromCart(${item.id})" style="margin-top: 0.5rem;">
+                            🗑️ সরান
+                        </button>
+                    </div>
+                `;
+                container.appendChild(cartItem);
+            });
+            
+            summaryContainer.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h3>মোট: ${formatPrice(total)}</h3>
+                    <button class="btn btn-primary" onclick="proceedToCheckout()">
+                        চেকআউট করুন
+                    </button>
+                </div>
+            `;
+        }
+
+        // Wishlist functions
+        function toggleWishlist(productId) {
+            const index = wishlist.indexOf(productId);
+            
+            if (index > -1) {
+                wishlist.splice(index, 1);
+                showToast('উইশলিস্ট থেকে সরানো হয়েছে!');
+            } else {
+                wishlist.push(productId);
+                showToast('উইশলিস্টে যোগ করা হয়েছে!');
+            }
+            
+            updateWishlistUI();
+            saveToStorage();
+            
+            // Refresh current page if needed
+            if (currentPage === 'wishlist') {
+                loadWishlistItems();
+            } else {
+                // Refresh product cards to update wishlist buttons
+                if (currentPage === 'home') loadFeaturedProducts();
+                if (currentPage === 'products') loadAllProducts();
+            }
+        }
+
+        function isInWishlist(productId) {
+            return wishlist.includes(productId);
+        }
+
+        function updateWishlistUI() {
+            document.getElementById('wishlistCount').textContent = wishlist.length;
+        }
+
+        function loadWishlistItems() {
+            const container = document.getElementById('wishlistItems');
+            
+            if (wishlist.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 2rem;">আপনার উইশলিস্ট খালি</p>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            wishlist.forEach(productId => {
+                const product = products.find(p => p.id === productId);
+                if (product) {
+                    container.appendChild(createProductCard(product));
+                }
+            });
+        }
+
+        // Filter functions
+        function filterByCategory(category) {
+            document.getElementById('categoryFilter').value = category;
+            applyFilters();
+            showPage('products');
+        }
+
+        function applyFilters() {
+            const categoryFilter = document.getElementById('categoryFilter').value;
+            const sortFilter = document.getElementById('sortFilter').value;
+            const priceRange = document.getElementById('priceRange').value;
+            
+            filteredProducts = [...products];
+            
+            // Category filter
+            if (categoryFilter) {
+                filteredProducts = filteredProducts.filter(p => p.category === categoryFilter);
+            }
+            
+            // Price filter
+            filteredProducts = filteredProducts.filter(p => p.price <= priceRange);
+            
+            // Sort
+            switch(sortFilter) {
+                case 'price-low':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'rating':
+                    filteredProducts.sort((a, b) => b.rating - a.rating);
+                    break;
+                case 'discount':
+                    filteredProducts.sort((a, b) => b.discount - a.discount);
+                    break;
+            }
+            
+            loadAllProducts();
+        }
+
+        function handleSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            if (searchTerm.trim() === '') {
+                filteredProducts = [...products];
+            } else {
+                filteredProducts = products.filter(p => 
+                    p.name.toLowerCase().includes(searchTerm) || 
+                    p.description.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            showPage('products');
+            loadAllProducts();
+        }
+
+        function updatePriceDisplay() {
+            const priceRange = document.getElementById('priceRange');
+            const priceDisplay = document.getElementById('priceDisplay');
+            priceDisplay.textContent = formatPrice(priceRange.value);
+            applyFilters();
+        }
+
+        // Authentication functions
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Simple demo login
+            if (email && password) {
+                currentUser = {
+                    id: 1,
+                    name: 'ব্যবহারকারী',
+                    email: email
+                };
+                
+                updateAuthUI();
+                saveToStorage();
+                showToast('সফলভাবে লগইন হয়েছে!');
+                showPage('home');
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            updateAuthUI();
+            saveToStorage();
+            showToast('লগআউট হয়েছে!');
+            showPage('home');
+        }
+
+        function updateAuthUI() {
+            const authBtn = document.getElementById('authBtn');
+            
+            if (currentUser) {
+                authBtn.innerHTML = `👤 ${currentUser.name}`;
+                authBtn.onclick = logout;
+            } else {
+                authBtn.innerHTML = '👤 লগইন';
+                authBtn.onclick = () => showPage('auth');
+            }
+        }
+
+        function showRegisterForm() {
+            showToast('রেজিস্ট্রেশন ফিচার শীঘ্রই আসছে!');
+        }
+
+        // Checkout functions
+        function proceedToCheckout() {
+            if (!currentUser) {
+                showToast('চেকআউট করার জন্য প্রথমে লগইন করুন!');
+                showPage('auth');
+                return;
+            }
+            
+            if (cart.length === 0) {
+                showToast('কার্ট খালি!');
+                return;
+            }
+            
+            // Simple checkout simulation
+            const orderId = Date.now();
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            orders.push({
+                id: orderId,
+                items: [...cart],
+                total: total,
+                date: new Date().toLocaleDateString('bn-BD'),
+                status: 'অর্ডার নিশ্চিত'
+            });
+            
+            cart = [];
+            updateCartUI();
+            saveToStorage();
+            
+            showToast(`অর্ডার সফল! অর্ডার নম্বর: ${orderId}`);
+            showPage('home');
+        }
+
+        // Utility functions
+        function formatPrice(price) {
+            return new Intl.NumberFormat('bn-BD', {
+                style: 'currency',
+                currency: 'BDT',
+                minimumFractionDigits: 0
+            }).format(price);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function subscribeNewsletter() {
+            const email = document.getElementById('newsletterEmail').value;
+            
+            if (!email) {
+                showToast('ইমেইল ঠিকানা লিখুন');
+                return;
+            }
+            
+            document.getElementById('newsletterEmail').value = '';
+            showToast('নিউজলেটার সাবস্ক্রিপশন সফল হয়েছে!');
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
