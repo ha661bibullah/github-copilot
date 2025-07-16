@@ -73,7 +73,7 @@ router.get('/:id/related', async (req, res) => {
 });
 
 // Create product (Admin only)
-router.post('/', [auth, admin, upload.array('images', 5)], async (req, res) => {
+router.post('/', auth, admin, upload.array('images', 5), async (req, res) => {
     try {
         const { name, description, shortDescription, price, oldPrice, category, stock, attributes, isFeatured, isNew, onSale } = req.body;
         
@@ -103,7 +103,7 @@ router.post('/', [auth, admin, upload.array('images', 5)], async (req, res) => {
 });
 
 // Update product (Admin only)
-router.put('/:id', [auth, admin, upload.array('images', 5)], async (req, res) => {
+router.put('/:id', auth, admin, upload.array('images', 5), async (req, res) => {
     try {
         const { name, description, shortDescription, price, oldPrice, category, stock, attributes, isFeatured, isNew, onSale } = req.body;
         
@@ -144,7 +144,7 @@ router.put('/:id', [auth, admin, upload.array('images', 5)], async (req, res) =>
 });
 
 // Delete product (Admin only)
-router.delete('/:id', [auth, admin], async (req, res) => {
+router.delete('/:id', auth, admin, async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);
         if (!product) {
