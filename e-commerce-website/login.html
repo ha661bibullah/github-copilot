@@ -9,8 +9,74 @@
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <!-- Top Bar and Header (Same as index.html) -->
-    <!-- ... -->
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <p>Free shipping on orders over $50</p>
+                <div class="top-bar-links">
+                    <a href="#">Help</a>
+                    <a href="#">Track Order</a>
+                    <div class="language-currency">
+                        <select id="language">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                        </select>
+                        <select id="currency">
+                            <option value="usd">USD</option>
+                            <option value="eur">EUR</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">ShopEase</a>
+                </div>
+                <div class="search-bar">
+                    <form action="shop.html">
+                        <input type="text" placeholder="Search for products..." id="search-input">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="header-icons">
+                    <a href="login.html" class="user-link"><i class="far fa-user"></i></a>
+                    <a href="#"><i class="far fa-heart"></i></a>
+                    <a href="cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li class="dropdown">
+                    <a href="#">Categories <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="shop.html?category=electronics">Electronics</a></li>
+                        <li><a href="shop.html?category=fashion">Fashion</a></li>
+                        <li><a href="shop.html?category=home">Home & Garden</a></li>
+                        <li><a href="shop.html?category=beauty">Beauty</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Deals</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <!-- Main Content -->
     <main class="auth-page">
@@ -44,7 +110,10 @@
                             <a href="#" id="forgot-password">Forgot password?</a>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <span class="btn-text">Login</span>
+                            <i class="fas fa-spinner fa-spin btn-loading" style="display: none;"></i>
+                        </button>
                         
                         <div class="social-login">
                             <p>Or login with</p>
@@ -84,7 +153,8 @@
                         
                         <div class="form-group">
                             <label for="register-password">Password</label>
-                            <input type="password" id="register-password" required>
+                            <input type="password" id="register-password" required minlength="6">
+                            <small>Password must be at least 6 characters long</small>
                         </div>
                         
                         <div class="form-group">
@@ -98,7 +168,10 @@
                             </label>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <span class="btn-text">Register</span>
+                            <i class="fas fa-spinner fa-spin btn-loading" style="display: none;"></i>
+                        </button>
                     </form>
                 </div>
                 
@@ -113,7 +186,10 @@
                             <input type="email" id="forgot-email" required>
                         </div>
                         
-                        <button type="submit" class="btn btn-primary btn-block">Send Reset Link</button>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <span class="btn-text">Send Reset Link</span>
+                            <i class="fas fa-spinner fa-spin btn-loading" style="display: none;"></i>
+                        </button>
                         <button type="button" class="btn btn-text btn-block" id="back-to-login">Back to Login</button>
                     </form>
                 </div>
@@ -121,80 +197,172 @@
         </div>
     </main>
 
-    <!-- Footer (Same as index.html) -->
-    <!-- ... -->
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>ShopEase</h3>
+                    <p>Your one-stop shop for all your needs. Quality products at affordable prices.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="dashboard.html">My Account</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                        <li><a href="#">Wishlist</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, New York, NY 10001</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@shopease.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 ShopEase. All Rights Reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script src="js/script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already logged in
+            const token = localStorage.getItem('token')
+            if (token) {
+                window.location.href = 'dashboard.html'
+                return
+            }
+
             // Tab switching
             document.querySelectorAll('.auth-tabs .tab').forEach(tab => {
                 tab.addEventListener('click', function() {
-                    const tabId = this.dataset.tab;
+                    const tabId = this.dataset.tab
                     
-                    document.querySelectorAll('.auth-tabs .tab').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
+                    document.querySelectorAll('.auth-tabs .tab').forEach(t => t.classList.remove('active'))
+                    this.classList.add('active')
                     
-                    document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
-                    document.getElementById(`${tabId}-form`).classList.add('active');
-                });
-            });
+                    document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'))
+                    document.getElementById(`${tabId}-form`).classList.add('active')
+                })
+            })
             
             // Forgot password
             document.getElementById('forgot-password').addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
-                document.getElementById('forgot-form').classList.add('active');
-            });
+                e.preventDefault()
+                document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'))
+                document.getElementById('forgot-form').classList.add('active')
+            })
             
             // Back to login from forgot password
             document.getElementById('back-to-login').addEventListener('click', function() {
-                document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
-                document.getElementById('login-form').classList.add('active');
-                document.querySelector('.auth-tabs .tab[data-tab="login"]').classList.add('active');
-                document.querySelector('.auth-tabs .tab[data-tab="register"]').classList.remove('active');
-            });
+                document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'))
+                document.getElementById('login-form').classList.add('active')
+                document.querySelector('.auth-tabs .tab[data-tab="login"]').classList.add('active')
+                document.querySelector('.auth-tabs .tab[data-tab="register"]').classList.remove('active')
+            })
             
-            // Form submissions
+            // Helper function to show loading state
+            function showButtonLoading(button, show) {
+                const text = button.querySelector('.btn-text')
+                const loading = button.querySelector('.btn-loading')
+                
+                if (show) {
+                    text.style.display = 'none'
+                    loading.style.display = 'inline-block'
+                    button.disabled = true
+                } else {
+                    text.style.display = 'inline-block'
+                    loading.style.display = 'none'
+                    button.disabled = false
+                }
+            }
+            
+            // Login form submission
             document.getElementById('login').addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const email = document.getElementById('login-email').value;
-                const password = document.getElementById('login-password').value;
+                e.preventDefault()
+                const submitBtn = this.querySelector('button[type="submit"]')
+                
+                showButtonLoading(submitBtn, true)
+                
+                const email = document.getElementById('login-email').value
+                const password = document.getElementById('login-password').value
                 
                 try {
-                    const result = await loginUser({ email, password });
+                    const result = await loginUser({ email, password })
                     
-                    // Store token
-                    localStorage.setItem('token', result.token);
-                    localStorage.setItem('user', JSON.stringify(result.user));
+                    // Store token and user data
+                    localStorage.setItem('token', result.token)
+                    localStorage.setItem('user', JSON.stringify(result.user))
                     
                     // Merge guest cart with user cart if exists
-                    const guestCart = JSON.parse(localStorage.getItem('guestCart') || '[]');
+                    const guestCart = JSON.parse(localStorage.getItem('guestCart') || '[]')
                     if (guestCart.length > 0) {
                         for (const item of guestCart) {
-                            await addToCart(item);
+                            await addToCart(item)
                         }
-                        localStorage.removeItem('guestCart');
+                        localStorage.removeItem('guestCart')
                     }
                     
-                    alert('Login successful!');
-                    window.location.href = 'dashboard.html';
+                    // Redirect to dashboard or previous page
+                    const redirectUrl = new URLSearchParams(window.location.search).get('redirect') || 'dashboard.html'
+                    window.location.href = redirectUrl
                 } catch (error) {
-                    alert('Login failed: ' + error.message);
+                    console.error('Login failed:', error)
+                } finally {
+                    showButtonLoading(submitBtn, false)
                 }
-            });
+            })
         
+            // Register form submission
             document.getElementById('register').addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const firstName = document.getElementById('register-firstname').value;
-                const lastName = document.getElementById('register-lastname').value;
-                const email = document.getElementById('register-email').value;
-                const password = document.getElementById('register-password').value;
-                const confirm = document.getElementById('register-confirm').value;
+                e.preventDefault()
+                const submitBtn = this.querySelector('button[type="submit"]')
+                
+                showButtonLoading(submitBtn, true)
+                
+                const firstName = document.getElementById('register-firstname').value
+                const lastName = document.getElementById('register-lastname').value
+                const email = document.getElementById('register-email').value
+                const password = document.getElementById('register-password').value
+                const confirm = document.getElementById('register-confirm').value
                 
                 if (password !== confirm) {
-                    alert('Passwords do not match!');
-                    return;
+                    showToast('Passwords do not match!', 'error')
+                    showButtonLoading(submitBtn, false)
+                    return
+                }
+                
+                if (password.length < 6) {
+                    showToast('Password must be at least 6 characters long!', 'error')
+                    showButtonLoading(submitBtn, false)
+                    return
                 }
                 
                 try {
@@ -202,101 +370,117 @@
                         name: `${firstName} ${lastName}`,
                         email,
                         password
-                    });
+                    })
                     
-                    // Store token
-                    localStorage.setItem('token', result.token);
-                    localStorage.setItem('user', JSON.stringify(result.user));
+                    // Store token and user data
+                    localStorage.setItem('token', result.token)
+                    localStorage.setItem('user', JSON.stringify(result.user))
                     
-                    alert('Registration successful!');
-                    window.location.href = 'dashboard.html';
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.html'
                 } catch (error) {
-                    alert('Registration failed: ' + error.message);
+                    console.error('Registration failed:', error)
+                } finally {
+                    showButtonLoading(submitBtn, false)
                 }
-            });
+            })
         
+            // Forgot password form submission
             document.getElementById('forgot').addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const email = document.getElementById('forgot-email').value;
+                e.preventDefault()
+                const submitBtn = this.querySelector('button[type="submit"]')
+                
+                showButtonLoading(submitBtn, true)
+                
+                const email = document.getElementById('forgot-email').value
                 
                 try {
-                    await forgotPassword(email);
-                    alert('Password reset link has been sent to your email');
+                    await forgotPassword(email)
                     
                     // Go back to login
-                    document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
-                    document.getElementById('login-form').classList.add('active');
-                    document.querySelector('.auth-tabs .tab[data-tab="login"]').classList.add('active');
-                    document.querySelector('.auth-tabs .tab[data-tab="register"]').classList.remove('active');
+                    document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'))
+                    document.getElementById('login-form').classList.add('active')
+                    document.querySelector('.auth-tabs .tab[data-tab="login"]').classList.add('active')
+                    document.querySelector('.auth-tabs .tab[data-tab="register"]').classList.remove('active')
+                    
+                    // Clear the form
+                    this.reset()
                 } catch (error) {
-                    alert('Failed to send reset link: ' + error.message);
+                    console.error('Forgot password failed:', error)
+                } finally {
+                    showButtonLoading(submitBtn, false)
                 }
-            });
-        });
+            })
+
+            // Social login buttons (placeholder functionality)
+            document.querySelectorAll('.btn-social').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const provider = this.classList.contains('facebook') ? 'Facebook' : 'Google'
+                    showToast(`${provider} login coming soon!`, 'info')
+                })
+            })
+
+            // Password strength indicator
+            document.getElementById('register-password').addEventListener('input', function() {
+                const password = this.value
+                const strengthIndicator = document.getElementById('password-strength') || createPasswordStrengthIndicator(this)
+                
+                let strength = 0
+                let strengthText = ''
+                let strengthColor = ''
+                
+                if (password.length >= 6) strength++
+                if (password.match(/[a-z]/)) strength++
+                if (password.match(/[A-Z]/)) strength++
+                if (password.match(/[0-9]/)) strength++
+                if (password.match(/[^a-zA-Z0-9]/)) strength++
+                
+                switch (strength) {
+                    case 0:
+                    case 1:
+                        strengthText = 'Weak'
+                        strengthColor = '#ef4444'
+                        break
+                    case 2:
+                    case 3:
+                        strengthText = 'Medium'
+                        strengthColor = '#f59e0b'
+                        break
+                    case 4:
+                    case 5:
+                        strengthText = 'Strong'
+                        strengthColor = '#10b981'
+                        break
+                }
+                
+                strengthIndicator.textContent = password.length > 0 ? `Password strength: ${strengthText}` : ''
+                strengthIndicator.style.color = strengthColor
+            })
+
+            function createPasswordStrengthIndicator(passwordInput) {
+                const indicator = document.createElement('small')
+                indicator.id = 'password-strength'
+                indicator.style.display = 'block'
+                indicator.style.marginTop = '5px'
+                passwordInput.parentNode.appendChild(indicator)
+                return indicator
+            }
+
+            // Real-time email validation
+            document.querySelectorAll('input[type="email"]').forEach(emailInput => {
+                emailInput.addEventListener('blur', function() {
+                    const email = this.value
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+                    
+                    if (email && !emailRegex.test(email)) {
+                        this.setCustomValidity('Please enter a valid email address')
+                        this.reportValidity()
+                    } else {
+                        this.setCustomValidity('')
+                    }
+                })
+            })
+        })
     </script>
-
-
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', async function() {
-    // Load products from API
-    const params = new URLSearchParams(window.location.search);
-    const category = params.get('category');
-    
-    let queryParams = {};
-    if (category) queryParams.category = category;
-    
-    try {
-        const products = await getProducts(queryParams);
-        displayProducts(products, 'all-products');
-    } catch (error) {
-        console.error('Failed to load products:', error);
-        document.getElementById('all-products').innerHTML = '<p>Failed to load products. Please try again later.</p>';
-    }
-    
-    // Sort functionality
-    document.getElementById('sort-by').addEventListener('change', async function() {
-        const sortValue = this.value;
-        let sortParams = { ...queryParams };
-        
-        switch(sortValue) {
-            case 'price-low': sortParams.sort = 'price'; break;
-            case 'price-high': sortParams.sort = '-price'; break;
-            case 'rating': sortParams.sort = '-rating'; break;
-            case 'newest': sortParams.sort = '-createdAt'; break;
-        }
-        
-        try {
-            const sortedProducts = await getProducts(sortParams);
-            displayProducts(sortedProducts, 'all-products');
-        } catch (error) {
-            console.error('Failed to sort products:', error);
-        }
-    });
-    
-    // View toggle
-    document.querySelectorAll('.view-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            
-            const view = this.dataset.view;
-            const productsGrid = document.getElementById('all-products');
-            productsGrid.className = view === 'grid' ? 'products-grid' : 'products-list';
-        });
-    });
-    
-    // Price filter
-    document.getElementById('apply-price').addEventListener('click', function() {
-        const priceRange = document.getElementById('price-range').value;
-        const priceParams = { ...queryParams, price: `lte:${priceRange}` };
-        
-        getProducts(priceParams)
-            .then(filteredProducts => displayProducts(filteredProducts, 'all-products'))
-            .catch(error => console.error('Failed to filter products:', error));
-    });
-});
-</script>
 </body>
 </html>

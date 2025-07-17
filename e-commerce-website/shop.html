@@ -9,8 +9,74 @@
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <!-- Top Bar and Header (Same as index.html) -->
-    <!-- ... -->
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <p>Free shipping on orders over $50</p>
+                <div class="top-bar-links">
+                    <a href="#">Help</a>
+                    <a href="#">Track Order</a>
+                    <div class="language-currency">
+                        <select id="language">
+                            <option value="en">English</option>
+                            <option value="es">Español</option>
+                        </select>
+                        <select id="currency">
+                            <option value="usd">USD</option>
+                            <option value="eur">EUR</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="index.html">ShopEase</a>
+                </div>
+                <div class="search-bar">
+                    <form>
+                        <input type="text" placeholder="Search for products..." id="search-input">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+                <div class="header-icons">
+                    <a href="login.html" class="user-link"><i class="far fa-user"></i></a>
+                    <a href="#"><i class="far fa-heart"></i></a>
+                    <a href="cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li class="dropdown">
+                    <a href="#">Categories <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="shop.html?category=electronics">Electronics</a></li>
+                        <li><a href="shop.html?category=fashion">Fashion</a></li>
+                        <li><a href="shop.html?category=home">Home & Garden</a></li>
+                        <li><a href="shop.html?category=beauty">Beauty</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Deals</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <!-- Main Content -->
     <main class="shop-page">
@@ -28,11 +94,11 @@
                     <div class="sidebar-widget">
                         <h3>Categories</h3>
                         <ul class="category-list">
-                            <li><a href="shop.html">All Categories</a></li>
-                            <li><a href="shop.html?category=electronics">Electronics</a></li>
-                            <li><a href="shop.html?category=fashion">Fashion</a></li>
-                            <li><a href="shop.html?category=home">Home & Garden</a></li>
-                            <li><a href="shop.html?category=beauty">Beauty</a></li>
+                            <li><a href="shop.html" class="category-filter" data-category="">All Categories</a></li>
+                            <li><a href="shop.html?category=electronics" class="category-filter" data-category="electronics">Electronics</a></li>
+                            <li><a href="shop.html?category=fashion" class="category-filter" data-category="fashion">Fashion</a></li>
+                            <li><a href="shop.html?category=home" class="category-filter" data-category="home">Home & Garden</a></li>
+                            <li><a href="shop.html?category=beauty" class="category-filter" data-category="beauty">Beauty</a></li>
                         </ul>
                     </div>
                     
@@ -41,8 +107,11 @@
                         <div class="price-range">
                             <input type="range" min="0" max="1000" value="500" class="slider" id="price-range">
                             <div class="price-values">
-                                <span>$0</span>
-                                <span>$1000</span>
+                                <span id="price-min">$0</span>
+                                <span id="price-max">$1000</span>
+                            </div>
+                            <div class="price-display">
+                                <span>Max: $<span id="price-current">500</span></span>
                             </div>
                             <button class="btn btn-small" id="apply-price">Apply</button>
                         </div>
@@ -51,11 +120,26 @@
                     <div class="sidebar-widget">
                         <h3>Brands</h3>
                         <ul class="brand-list">
-                            <li><input type="checkbox" id="brand1"> <label for="brand1">Apple</label></li>
-                            <li><input type="checkbox" id="brand2"> <label for="brand2">Samsung</label></li>
-                            <li><input type="checkbox" id="brand3"> <label for="brand3">Nike</label></li>
-                            <li><input type="checkbox" id="brand4"> <label for="brand4">Adidas</label></li>
-                            <li><input type="checkbox" id="brand5"> <label for="brand5">Sony</label></li>
+                            <li>
+                                <input type="checkbox" id="brand1" class="brand-filter" data-brand="apple">
+                                <label for="brand1">Apple</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="brand2" class="brand-filter" data-brand="samsung">
+                                <label for="brand2">Samsung</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="brand3" class="brand-filter" data-brand="nike">
+                                <label for="brand3">Nike</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="brand4" class="brand-filter" data-brand="adidas">
+                                <label for="brand4">Adidas</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="brand5" class="brand-filter" data-brand="sony">
+                                <label for="brand5">Sony</label>
+                            </li>
                         </ul>
                     </div>
                     
@@ -63,7 +147,7 @@
                         <h3>Ratings</h3>
                         <ul class="rating-list">
                             <li>
-                                <input type="checkbox" id="rating5">
+                                <input type="checkbox" id="rating5" class="rating-filter" data-rating="5">
                                 <label for="rating5">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -73,7 +157,7 @@
                                 </label>
                             </li>
                             <li>
-                                <input type="checkbox" id="rating4">
+                                <input type="checkbox" id="rating4" class="rating-filter" data-rating="4">
                                 <label for="rating4">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -83,7 +167,7 @@
                                 </label>
                             </li>
                             <li>
-                                <input type="checkbox" id="rating3">
+                                <input type="checkbox" id="rating3" class="rating-filter" data-rating="3">
                                 <label for="rating3">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -94,25 +178,53 @@
                             </li>
                         </ul>
                     </div>
+
+                    <div class="sidebar-widget">
+                        <h3>Availability</h3>
+                        <ul class="availability-list">
+                            <li>
+                                <input type="checkbox" id="in-stock" class="availability-filter" data-availability="in-stock">
+                                <label for="in-stock">In Stock</label>
+                            </li>
+                            <li>
+                                <input type="checkbox" id="on-sale" class="availability-filter" data-availability="on-sale">
+                                <label for="on-sale">On Sale</label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-widget">
+                        <button class="btn btn-outline btn-block" id="clear-filters">Clear All Filters</button>
+                    </div>
                 </aside>
                 
                 <!-- Product Listing -->
                 <div class="product-listing">
                     <div class="listing-header">
-                        <div class="sort-options">
-                            <label for="sort-by">Sort by:</label>
-                            <select id="sort-by">
-                                <option value="popular">Popularity</option>
-                                <option value="newest">Newest</option>
-                                <option value="price-low">Price: Low to High</option>
-                                <option value="price-high">Price: High to Low</option>
-                                <option value="rating">Rating</option>
-                            </select>
+                        <div class="results-info">
+                            <span id="results-count">Showing 0 products</span>
                         </div>
-                        <div class="view-options">
-                            <span>View:</span>
-                            <button class="view-btn active" data-view="grid"><i class="fas fa-th"></i></button>
-                            <button class="view-btn" data-view="list"><i class="fas fa-list"></i></button>
+                        <div class="listing-controls">
+                            <div class="sort-options">
+                                <label for="sort-by">Sort by:</label>
+                                <select id="sort-by">
+                                    <option value="popular">Popularity</option>
+                                    <option value="newest">Newest</option>
+                                    <option value="price-low">Price: Low to High</option>
+                                    <option value="price-high">Price: High to Low</option>
+                                    <option value="rating">Rating</option>
+                                    <option value="name">Name A-Z</option>
+                                </select>
+                            </div>
+                            <div class="view-options">
+                                <span>View:</span>
+                                <button class="view-btn active" data-view="grid" title="Grid View">
+                                    <i class="fas fa-th"></i>
+                                </button>
+                                <button class="view-btn" data-view="list" title="List View">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     
@@ -120,88 +232,358 @@
                         <!-- Products will be loaded via JavaScript -->
                     </div>
                     
-                    <div class="pagination">
-                        <button class="page-btn disabled"><i class="fas fa-chevron-left"></i></button>
-                        <button class="page-btn active">1</button>
-                        <button class="page-btn">2</button>
-                        <button class="page-btn">3</button>
-                        <button class="page-btn"><i class="fas fa-chevron-right"></i></button>
+                    <div class="pagination" id="pagination">
+                        <!-- Pagination will be generated by JavaScript -->
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer (Same as index.html) -->
-    <!-- ... -->
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>ShopEase</h3>
+                    <p>Your one-stop shop for all your needs. Quality products at affordable prices.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="dashboard.html">My Account</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                        <li><a href="#">Wishlist</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, New York, NY 10001</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@shopease.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 ShopEase. All Rights Reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-    <script src="js/products.js"></script>
     <script src="js/script.js"></script>
     <script>
-document.addEventListener('DOMContentLoaded', async function() {
-    // Load products from API
-    const params = new URLSearchParams(window.location.search);
-    const category = params.get('category');
-    
-    let queryParams = {};
-    if (category) {
-        queryParams.category = category;
-        document.querySelector('.page-header h1').textContent = category.charAt(0).toUpperCase() + category.slice(1);
-    }
-    
-    try {
-        const products = await getProducts(queryParams);
-        displayProducts(products, 'all-products');
-    } catch (error) {
-        console.error('Failed to load products:', error);
-        document.getElementById('all-products').innerHTML = '<p>Failed to load products. Please try again later.</p>';
-    }
-    
-    // Sort functionality
-    document.getElementById('sort-by').addEventListener('change', async function() {
-        const sortValue = this.value;
-        let sortParams = { ...queryParams };
-        
-        switch(sortValue) {
-            case 'price-low': sortParams.sort = 'price'; break;
-            case 'price-high': sortParams.sort = '-price'; break;
-            case 'rating': sortParams.sort = '-rating'; break;
-            case 'newest': sortParams.sort = '-createdAt'; break;
-        }
-        
-        try {
-            const sortedProducts = await getProducts(sortParams);
-            displayProducts(sortedProducts, 'all-products');
-        } catch (error) {
-            console.error('Failed to sort products:', error);
-        }
-    });
-    
-    // View toggle
-    document.querySelectorAll('.view-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
+        document.addEventListener('DOMContentLoaded', async function() {
+            let currentFilters = {
+                category: '',
+                minPrice: 0,
+                maxPrice: 1000,
+                brands: [],
+                ratings: [],
+                availability: [],
+                sort: 'popular',
+                page: 1,
+                limit: 12
+            }
+
+            // Get initial category from URL
+            const params = new URLSearchParams(window.location.search)
+            const category = params.get('category')
             
-            const view = this.dataset.view;
-            const productsGrid = document.getElementById('all-products');
-            productsGrid.className = view === 'grid' ? 'products-grid' : 'products-list';
-        });
-    });
-    
-    // Price filter
-    document.getElementById('apply-price').addEventListener('click', async function() {
-        const priceRange = document.getElementById('price-range').value;
-        const priceParams = { ...queryParams, price: `lte:${priceRange}` };
-        
-        try {
-            const filteredProducts = await getProducts(priceParams);
-            displayProducts(filteredProducts, 'all-products');
-        } catch (error) {
-            console.error('Failed to filter products:', error);
-        }
-    });
-});
-</script>
+            if (category) {
+                currentFilters.category = category
+                document.querySelector('.page-header h1').textContent = 
+                    category.charAt(0).toUpperCase() + category.slice(1)
+                
+                // Highlight active category
+                document.querySelectorAll('.category-filter').forEach(link => {
+                    if (link.dataset.category === category) {
+                        link.classList.add('active')
+                    }
+                })
+            }
+            
+            // Initialize price range slider
+            const priceRange = document.getElementById('price-range')
+            const priceCurrent = document.getElementById('price-current')
+            
+            priceRange.addEventListener('input', function() {
+                priceCurrent.textContent = this.value
+                currentFilters.maxPrice = parseInt(this.value)
+            })
+
+            // Load initial products
+            await loadProducts()
+            
+            // Sort functionality
+            document.getElementById('sort-by').addEventListener('change', async function() {
+                currentFilters.sort = this.value
+                currentFilters.page = 1
+                await loadProducts()
+            })
+            
+            // View toggle
+            document.querySelectorAll('.view-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'))
+                    this.classList.add('active')
+                    
+                    const view = this.dataset.view
+                    const productsGrid = document.getElementById('all-products')
+                    productsGrid.className = view === 'grid' ? 'products-grid' : 'products-list'
+                })
+            })
+            
+            // Price filter
+            document.getElementById('apply-price').addEventListener('click', async function() {
+                currentFilters.page = 1
+                await loadProducts()
+            })
+
+            // Brand filters
+            document.querySelectorAll('.brand-filter').forEach(checkbox => {
+                checkbox.addEventListener('change', async function() {
+                    const brand = this.dataset.brand
+                    if (this.checked) {
+                        currentFilters.brands.push(brand)
+                    } else {
+                        currentFilters.brands = currentFilters.brands.filter(b => b !== brand)
+                    }
+                    currentFilters.page = 1
+                    await loadProducts()
+                })
+            })
+
+            // Rating filters
+            document.querySelectorAll('.rating-filter').forEach(checkbox => {
+                checkbox.addEventListener('change', async function() {
+                    const rating = parseInt(this.dataset.rating)
+                    if (this.checked) {
+                        currentFilters.ratings.push(rating)
+                    } else {
+                        currentFilters.ratings = currentFilters.ratings.filter(r => r !== rating)
+                    }
+                    currentFilters.page = 1
+                    await loadProducts()
+                })
+            })
+
+            // Availability filters
+            document.querySelectorAll('.availability-filter').forEach(checkbox => {
+                checkbox.addEventListener('change', async function() {
+                    const availability = this.dataset.availability
+                    if (this.checked) {
+                        currentFilters.availability.push(availability)
+                    } else {
+                        currentFilters.availability = currentFilters.availability.filter(a => a !== availability)
+                    }
+                    currentFilters.page = 1
+                    await loadProducts()
+                })
+            })
+
+            // Clear filters
+            document.getElementById('clear-filters').addEventListener('click', async function() {
+                // Reset all filters
+                currentFilters = {
+                    category: '',
+                    minPrice: 0,
+                    maxPrice: 1000,
+                    brands: [],
+                    ratings: [],
+                    availability: [],
+                    sort: 'popular',
+                    page: 1,
+                    limit: 12
+                }
+
+                // Reset UI
+                document.getElementById('price-range').value = 1000
+                document.getElementById('price-current').textContent = '1000'
+                document.getElementById('sort-by').value = 'popular'
+                
+                // Uncheck all checkboxes
+                document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                    cb.checked = false
+                })
+
+                // Remove active category
+                document.querySelectorAll('.category-filter').forEach(link => {
+                    link.classList.remove('active')
+                })
+
+                // Update page title
+                document.querySelector('.page-header h1').textContent = 'Shop'
+
+                // Reload products
+                await loadProducts()
+            })
+
+            // Search functionality
+            const searchForm = document.querySelector('.search-bar form')
+            if (searchForm) {
+                searchForm.addEventListener('submit', async function(e) {
+                    e.preventDefault()
+                    const query = document.getElementById('search-input').value.trim()
+                    
+                    if (query) {
+                        currentFilters.search = query
+                        currentFilters.page = 1
+                        await loadProducts()
+                        
+                        // Update page title
+                        document.querySelector('.page-header h1').textContent = `Search Results for "${query}"`
+                    }
+                })
+            }
+
+            // Category filters
+            document.querySelectorAll('.category-filter').forEach(link => {
+                link.addEventListener('click', async function(e) {
+                    e.preventDefault()
+                    
+                    // Remove active class from all
+                    document.querySelectorAll('.category-filter').forEach(l => l.classList.remove('active'))
+                    this.classList.add('active')
+                    
+                    currentFilters.category = this.dataset.category
+                    currentFilters.page = 1
+                    
+                    // Update page title
+                    const categoryName = this.dataset.category
+                    document.querySelector('.page-header h1').textContent = 
+                        categoryName ? categoryName.charAt(0).toUpperCase() + categoryName.slice(1) : 'Shop'
+                    
+                    await loadProducts()
+                })
+            })
+
+            // Load products function
+            async function loadProducts() {
+                showLoading('all-products')
+                
+                try {
+                    // Build query parameters
+                    const queryParams = {}
+                    
+                    if (currentFilters.category) queryParams.category = currentFilters.category
+                    if (currentFilters.search) queryParams.search = currentFilters.search
+                    if (currentFilters.maxPrice < 1000) queryParams.maxPrice = currentFilters.maxPrice
+                    if (currentFilters.brands.length > 0) queryParams.brands = currentFilters.brands.join(',')
+                    if (currentFilters.ratings.length > 0) queryParams.minRating = Math.min(...currentFilters.ratings)
+                    if (currentFilters.availability.includes('in-stock')) queryParams.inStock = true
+                    if (currentFilters.availability.includes('on-sale')) queryParams.onSale = true
+                    
+                    queryParams.sort = getSortParameter(currentFilters.sort)
+                    queryParams.page = currentFilters.page
+                    queryParams.limit = currentFilters.limit
+                    
+                    const products = await getProducts(queryParams)
+                    await displayProducts(products, 'all-products')
+                    
+                    // Update results count
+                    document.getElementById('results-count').textContent = 
+                        `Showing ${products.length} products`
+                    
+                    // Generate pagination if needed
+                    generatePagination(products.length)
+                    
+                } catch (error) {
+                    console.error('Failed to load products:', error)
+                    document.getElementById('all-products').innerHTML = 
+                        '<p class="error">Failed to load products. Please try again later.</p>'
+                }
+            }
+
+            // Helper function to convert sort option to API parameter
+            function getSortParameter(sortOption) {
+                switch(sortOption) {
+                    case 'price-low': return 'price'
+                    case 'price-high': return '-price'
+                    case 'rating': return '-rating'
+                    case 'newest': return '-createdAt'
+                    case 'name': return 'name'
+                    default: return '-createdAt' // Default to newest
+                }
+            }
+
+            // Generate pagination
+            function generatePagination(totalProducts) {
+                const paginationContainer = document.getElementById('pagination')
+                const totalPages = Math.ceil(totalProducts / currentFilters.limit)
+                
+                if (totalPages <= 1) {
+                    paginationContainer.innerHTML = ''
+                    return
+                }
+
+                let paginationHTML = ''
+                
+                // Previous button
+                if (currentFilters.page > 1) {
+                    paginationHTML += `<button class="page-btn" onclick="changePage(${currentFilters.page - 1})">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>`
+                } else {
+                    paginationHTML += `<button class="page-btn disabled">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>`
+                }
+
+                // Page numbers
+                for (let i = 1; i <= Math.min(totalPages, 5); i++) {
+                    const isActive = i === currentFilters.page ? 'active' : ''
+                    paginationHTML += `<button class="page-btn ${isActive}" onclick="changePage(${i})">${i}</button>`
+                }
+
+                // Next button
+                if (currentFilters.page < totalPages) {
+                    paginationHTML += `<button class="page-btn" onclick="changePage(${currentFilters.page + 1})">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>`
+                } else {
+                    paginationHTML += `<button class="page-btn disabled">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>`
+                }
+
+                paginationContainer.innerHTML = paginationHTML
+            }
+
+            // Change page function (global scope for onclick)
+            window.changePage = async function(page) {
+                currentFilters.page = page
+                await loadProducts()
+                
+                // Scroll to top of products
+                document.getElementById('all-products').scrollIntoView({ 
+                    behavior: 'smooth', 
+                    block: 'start' 
+                })
+            }
+        })
+    </script>
 </body>
 </html>
