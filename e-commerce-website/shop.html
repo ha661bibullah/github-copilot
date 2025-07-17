@@ -138,77 +138,16 @@
     <script src="js/products.js"></script>
     <script src="js/script.js"></script>
     <script>
-        // Filter and sort functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const products = getProducts();
-            const category = new URLSearchParams(window.location.search).get('category');
-            let filteredProducts = products;
-            
-            // Filter by category if specified
-            if (category) {
-                filteredProducts = products.filter(product => product.category === category);
-                document.querySelector('.page-header h1').textContent = category.charAt(0).toUpperCase() + category.slice(1);
-            }
-            
-            displayProducts(filteredProducts, 'all-products');
-            
-            // Sort functionality
-            document.getElementById('sort-by').addEventListener('change', function() {
-                const sortValue = this.value;
-                let sortedProducts = [...filteredProducts];
-                
-                switch(sortValue) {
-                    case 'price-low':
-                        sortedProducts.sort((a, b) => a.price - b.price);
-                        break;
-                    case 'price-high':
-                        sortedProducts.sort((a, b) => b.price - a.price);
-                        break;
-                    case 'rating':
-                        sortedProducts.sort((a, b) => b.rating - a.rating);
-                        break;
-                    case 'newest':
-                        sortedProducts.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
-                        break;
-                    default:
-                        // Popularity (default)
-                        break;
-                }
-                
-                displayProducts(sortedProducts, 'all-products');
-            });
-            
-            // View toggle
-            document.querySelectorAll('.view-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const view = this.dataset.view;
-                    const productsGrid = document.getElementById('all-products');
-                    productsGrid.className = view === 'grid' ? 'products-grid' : 'products-list';
-                });
-            });
-            
-            // Price filter
-            document.getElementById('apply-price').addEventListener('click', function() {
-                const priceRange = document.getElementById('price-range').value;
-                const priceFiltered = filteredProducts.filter(product => product.price <= priceRange);
-                displayProducts(priceFiltered, 'all-products');
-            });
-        });
-    </script>
-
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function() {
     // Load products from API
     const params = new URLSearchParams(window.location.search);
     const category = params.get('category');
     
     let queryParams = {};
-    if (category) queryParams.category = category;
+    if (category) {
+        queryParams.category = category;
+        document.querySelector('.page-header h1').textContent = category.charAt(0).toUpperCase() + category.slice(1);
+    }
     
     try {
         const products = await getProducts(queryParams);
@@ -251,19 +190,18 @@
     });
     
     // Price filter
-    document.getElementById('apply-price').addEventListener('click', function() {
+    document.getElementById('apply-price').addEventListener('click', async function() {
         const priceRange = document.getElementById('price-range').value;
         const priceParams = { ...queryParams, price: `lte:${priceRange}` };
         
-        getProducts(priceParams)
-            .then(filteredProducts => displayProducts(filteredProducts, 'all-products'))
-            .catch(error => console.error('Failed to filter products:', error));
+        try {
+            const filteredProducts = await getProducts(priceParams);
+            displayProducts(filteredProducts, 'all-products');
+        } catch (error) {
+            console.error('Failed to filter products:', error);
+        }
     });
 });
 </script>
-
-
-
-
 </body>
 </html>

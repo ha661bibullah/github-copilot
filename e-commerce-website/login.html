@@ -156,19 +156,35 @@
             });
             
             // Form submissions
-            document.getElementById('login').addEventListener('submit', function(e) {
+            document.getElementById('login').addEventListener('submit', async function(e) {
                 e.preventDefault();
                 const email = document.getElementById('login-email').value;
                 const password = document.getElementById('login-password').value;
                 
-                // In a real app, you would validate and send to your backend
-                console.log('Login attempt:', email, password);
-                
-                // For demo, just redirect to dashboard
-                window.location.href = 'dashboard.html';
+                try {
+                    const result = await loginUser({ email, password });
+                    
+                    // Store token
+                    localStorage.setItem('token', result.token);
+                    localStorage.setItem('user', JSON.stringify(result.user));
+                    
+                    // Merge guest cart with user cart if exists
+                    const guestCart = JSON.parse(localStorage.getItem('guestCart') || '[]');
+                    if (guestCart.length > 0) {
+                        for (const item of guestCart) {
+                            await addToCart(item);
+                        }
+                        localStorage.removeItem('guestCart');
+                    }
+                    
+                    alert('Login successful!');
+                    window.location.href = 'dashboard.html';
+                } catch (error) {
+                    alert('Login failed: ' + error.message);
+                }
             });
-            
-            document.getElementById('register').addEventListener('submit', function(e) {
+        
+            document.getElementById('register').addEventListener('submit', async function(e) {
                 e.preventDefault();
                 const firstName = document.getElementById('register-firstname').value;
                 const lastName = document.getElementById('register-lastname').value;
@@ -181,26 +197,40 @@
                     return;
                 }
                 
-                // In a real app, you would validate and send to your backend
-                console.log('Registration:', firstName, lastName, email, password);
-                
-                // For demo, just redirect to dashboard
-                window.location.href = 'dashboard.html';
+                try {
+                    const result = await registerUser({
+                        name: `${firstName} ${lastName}`,
+                        email,
+                        password
+                    });
+                    
+                    // Store token
+                    localStorage.setItem('token', result.token);
+                    localStorage.setItem('user', JSON.stringify(result.user));
+                    
+                    alert('Registration successful!');
+                    window.location.href = 'dashboard.html';
+                } catch (error) {
+                    alert('Registration failed: ' + error.message);
+                }
             });
-            
-            document.getElementById('forgot').addEventListener('submit', function(e) {
+        
+            document.getElementById('forgot').addEventListener('submit', async function(e) {
                 e.preventDefault();
                 const email = document.getElementById('forgot-email').value;
                 
-                // In a real app, you would send a reset link to this email
-                console.log('Password reset requested for:', email);
-                alert('Password reset link has been sent to your email (demo only)');
-                
-                // Go back to login
-                document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
-                document.getElementById('login-form').classList.add('active');
-                document.querySelector('.auth-tabs .tab[data-tab="login"]').classList.add('active');
-                document.querySelector('.auth-tabs .tab[data-tab="register"]').classList.remove('active');
+                try {
+                    await forgotPassword(email);
+                    alert('Password reset link has been sent to your email');
+                    
+                    // Go back to login
+                    document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+                    document.getElementById('login-form').classList.add('active');
+                    document.querySelector('.auth-tabs .tab[data-tab="login"]').classList.add('active');
+                    document.querySelector('.auth-tabs .tab[data-tab="register"]').classList.remove('active');
+                } catch (error) {
+                    alert('Failed to send reset link: ' + error.message);
+                }
             });
         });
     </script>
