@@ -1,145 +1,180 @@
-const express = require('express');
-const router = express.Router();
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
-const nodemailer = require('nodemailer');
-const crypto = require('crypto');
-const { body, validationResult } = require('express-validator');
+const express = require("express")
+const router = express.Router()
+const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+const User = require("../models/User")
+const nodemailer = require("nodemailer")
+const crypto = require("crypto")
+const { body, validationResult } = require("express-validator")
+
+// Email transporter setup
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+})
 
 // Register
-router.post('/register', [
-    body('name', 'Name is required').not().isEmpty(),
-    body('email', 'Please include a valid email').isEmail(),
-    body('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 })
-], async (req, res) => {
-    const errors = validationResult(req);
+router.post(
+  "/register",
+  [
+    body("name", "Name is required").not().isEmpty(),
+    body("email", "Please include a valid email").isEmail(),
+    body("password", "Please enter a password with 6 or more characters").isLength({ min: 6 }),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() })
     }
 
-    const { name, email, password } = req.body;
+    const { name, email, password } = req.body
 
     try {
-        let user = await User.findOne({ email });
-        if (user) {
-            return res.status(400).json({ msg: 'User already exists' });
-        }
+      let user = await User.findOne({ email })
+      if (user) {
+        return res.status(400).json({ msg: "User already exists" })
+      }
 
-        user = new User({ name, email, password });
-        await user.save();
+      user = new User({ name, email, password })
+      await user.save()
 
-        const payload = { user: { id: user.id } };
-        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' }, (err, token) => {
-            if (err) throw err;
-            res.json({ token });
-        });
-
+      const payload = { user: { id: user.id, isAdmin: user.isAdmin } }
+      jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" }, (err, token) => {
+        if (err) throw err
+        res.json({
+          token,
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+          },
+        })
+      })
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
+      console.error(err.message)
+      res.status(500).send("Server error")
     }
-});
+  },
+)
 
 // Login
-router.post('/login', [
-    body('email', 'Please include a valid email').isEmail(),
-    body('password', 'Password is required').exists()
-], async (req, res) => {
-    const errors = validationResult(req);
+router.post(
+  "/login",
+  [body("email", "Please include a valid email").isEmail(), body("password", "Password is required").exists()],
+  async (req, res) => {
+    const errors = validationResult(req)
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() })
     }
 
-    const { email, password } = req.body;
+    const { email, password } = req.body
 
     try {
-        let user = await User.findOne({ email });
-        if (!user) {
-            return res.status(400).json({ msg: 'Invalid credentials' });
-        }
+      const user = await User.findOne({ email })
+      if (!user) {
+        return res.status(400).json({ msg: "Invalid credentials" })
+      }
 
-        const isMatch = await user.comparePassword(password);
-        if (!isMatch) {
-            return res.status(400).json({ msg: 'Invalid credentials' });
-        }
+      const isMatch = await user.comparePassword(password)
+      if (!isMatch) {
+        return res.status(400).json({ msg: "Invalid credentials" })
+      }
 
-        const payload = { user: { id: user.id, isAdmin: user.isAdmin } };
-        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' }, (err, token) => {
-            if (err) throw err;
-            res.json({ token });
-        });
-
+      const payload = { user: { id: user.id, isAdmin: user.isAdmin } }
+      jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" }, (err, token) => {
+        if (err) throw err
+        res.json({
+          token,
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+          },
+        })
+      })
     } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
+      console.error(err.message)
+      res.status(500).send("Server error")
     }
-});
+  },
+)
 
 // Forgot Password
-router.post('/forgot-password', async (req, res) => {
-    const { email } = req.body;
+router.post("/forgot-password", async (req, res) => {
+  const { email } = req.body
 
-    try {
-        const user = await User.findOne({ email });
-        if (!user) {
-            return res.status(404).json({ msg: 'User not found' });
-        }
-
-        const resetToken = user.getResetPasswordToken();
-        await user.save();
-
-        const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
-
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: user.email,
-            subject: 'Password Reset Request',
-            html: `
-                <p>You requested a password reset. Click the link below to reset your password:</p>
-                <a href="${resetUrl}">${resetUrl}</a>
-                <p>This link will expire in 10 minutes.</p>
-            `
-        };
-
-        await transporter.sendMail(mailOptions);
-        res.json({ msg: 'Email sent' });
-
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
+  try {
+    const user = await User.findOne({ email })
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" })
     }
-});
+
+    // Check if email is configured
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      return res.status(500).json({
+        msg: "Email service not configured. Please contact administrator.",
+      })
+    }
+
+    const resetToken = user.getResetPasswordToken()
+    await user.save()
+
+    const resetUrl = `${process.env.FRONTEND_URL || "http://localhost:3000"}/reset-password/${resetToken}`
+
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: user.email,
+      subject: "Password Reset Request",
+      html: `
+        <p>You requested a password reset. Click the link below to reset your password:</p>
+        <a href="${resetUrl}">${resetUrl}</a>
+        <p>This link will expire in 10 minutes.</p>
+      `,
+    }
+
+    await transporter.sendMail(mailOptions)
+    res.json({ msg: "Password reset email sent successfully" })
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).json({
+      msg: "Failed to send email. Please try again later.",
+    })
+  }
+})
 
 // Reset Password
-router.put('/reset-password/:token', async (req, res) => {
-    const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+router.put("/reset-password/:token", async (req, res) => {
+  const resetPasswordToken = crypto.createHash("sha256").update(req.params.token).digest("hex")
 
-    try {
-        const user = await User.findOne({
-            resetPasswordToken,
-            resetPasswordExpire: { $gt: Date.now() }
-        });
+  try {
+    const user = await User.findOne({
+      resetPasswordToken,
+      resetPasswordExpire: { $gt: Date.now() },
+    })
 
-        if (!user) {
-            return res.status(400).json({ msg: 'Invalid or expired token' });
-        }
-
-        user.password = req.body.password;
-        user.resetPasswordToken = undefined;
-        user.resetPasswordExpire = undefined;
-        await user.save();
-
-        const payload = { user: { id: user.id } };
-        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' }, (err, token) => {
-            if (err) throw err;
-            res.json({ token });
-        });
-
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Server error');
+    if (!user) {
+      return res.status(400).json({ msg: "Invalid or expired token" })
     }
-});
 
-module.exports = router;
+    user.password = req.body.password
+    user.resetPasswordToken = undefined
+    user.resetPasswordExpire = undefined
+    await user.save()
+
+    const payload = { user: { id: user.id, isAdmin: user.isAdmin } }
+    jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "7d" }, (err, token) => {
+      if (err) throw err
+      res.json({ token })
+    })
+  } catch (err) {
+    console.error(err.message)
+    res.status(500).send("Server error")
+  }
+})
+
+module.exports = router
